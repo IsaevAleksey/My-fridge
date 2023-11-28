@@ -8,17 +8,35 @@
 
 /* Begin PBXBuildFile section */
 		931EEDE82B1646BB0006E4AD /* My_fridgeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931EEDE72B1646BB0006E4AD /* My_fridgeApp.swift */; };
-		931EEDEA2B1646BB0006E4AD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931EEDE92B1646BB0006E4AD /* ContentView.swift */; };
 		931EEDEC2B1646BC0006E4AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 931EEDEB2B1646BC0006E4AD /* Assets.xcassets */; };
 		931EEDEF2B1646BC0006E4AD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 931EEDEE2B1646BC0006E4AD /* Preview Assets.xcassets */; };
+		931EEDF62B164A4C0006E4AD /* MyFridgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931EEDF52B164A4C0006E4AD /* MyFridgeView.swift */; };
+		931EEDF82B1654230006E4AD /* AddProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931EEDF72B1654230006E4AD /* AddProductView.swift */; };
+		93834BEC2B16593D0043AE84 /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834BEB2B16593D0043AE84 /* ProductView.swift */; };
+		93834BEE2B165E720043AE84 /* CatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834BED2B165E720043AE84 /* CatalogView.swift */; };
+		93834BF22B1660750043AE84 /* ProductRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834BF12B1660750043AE84 /* ProductRow.swift */; };
+		93834BF52B1663960043AE84 /* AddProductManualView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834BF42B1663960043AE84 /* AddProductManualView.swift */; };
+		93834BF82B1681ED0043AE84 /* CatalogCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834BF72B1681ED0043AE84 /* CatalogCellView.swift */; };
+		93834BFB2B1687BA0043AE84 /* SubCatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834BFA2B1687BA0043AE84 /* SubCatalogView.swift */; };
+		93834BFE2B16880E0043AE84 /* ProductListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834BFD2B16880E0043AE84 /* ProductListView.swift */; };
+		93834C012B1688DA0043AE84 /* ProductListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834C002B1688DA0043AE84 /* ProductListRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		931EEDE42B1646BB0006E4AD /* My fridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My fridge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		931EEDE72B1646BB0006E4AD /* My_fridgeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = My_fridgeApp.swift; sourceTree = "<group>"; };
-		931EEDE92B1646BB0006E4AD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		931EEDEB2B1646BC0006E4AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		931EEDEE2B1646BC0006E4AD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		931EEDF52B164A4C0006E4AD /* MyFridgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFridgeView.swift; sourceTree = "<group>"; };
+		931EEDF72B1654230006E4AD /* AddProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductView.swift; sourceTree = "<group>"; };
+		93834BEB2B16593D0043AE84 /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
+		93834BED2B165E720043AE84 /* CatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogView.swift; sourceTree = "<group>"; };
+		93834BF12B1660750043AE84 /* ProductRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductRow.swift; sourceTree = "<group>"; };
+		93834BF42B1663960043AE84 /* AddProductManualView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductManualView.swift; sourceTree = "<group>"; };
+		93834BF72B1681ED0043AE84 /* CatalogCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCellView.swift; sourceTree = "<group>"; };
+		93834BFA2B1687BA0043AE84 /* SubCatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCatalogView.swift; sourceTree = "<group>"; };
+		93834BFD2B16880E0043AE84 /* ProductListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListView.swift; sourceTree = "<group>"; };
+		93834C002B1688DA0043AE84 /* ProductListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +70,11 @@
 			isa = PBXGroup;
 			children = (
 				931EEDE72B1646BB0006E4AD /* My_fridgeApp.swift */,
-				931EEDE92B1646BB0006E4AD /* ContentView.swift */,
+				93834BEF2B1660210043AE84 /* MyFridgeView */,
+				93834BF02B1660330043AE84 /* CatalogView */,
+				93834BF62B1664160043AE84 /* ProductView */,
+				931EEDF72B1654230006E4AD /* AddProductView.swift */,
+				93834BF42B1663960043AE84 /* AddProductManualView.swift */,
 				931EEDEB2B1646BC0006E4AD /* Assets.xcassets */,
 				931EEDED2B1646BC0006E4AD /* Preview Content */,
 			);
@@ -65,6 +87,75 @@
 				931EEDEE2B1646BC0006E4AD /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		93834BEF2B1660210043AE84 /* MyFridgeView */ = {
+			isa = PBXGroup;
+			children = (
+				931EEDF52B164A4C0006E4AD /* MyFridgeView.swift */,
+				93834BF32B1660790043AE84 /* Components */,
+			);
+			path = MyFridgeView;
+			sourceTree = "<group>";
+		};
+		93834BF02B1660330043AE84 /* CatalogView */ = {
+			isa = PBXGroup;
+			children = (
+				93834BED2B165E720043AE84 /* CatalogView.swift */,
+				93834BFC2B1687C30043AE84 /* SubCatalogView */,
+				93834BF92B1681F20043AE84 /* Components */,
+			);
+			path = CatalogView;
+			sourceTree = "<group>";
+		};
+		93834BF32B1660790043AE84 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				93834BF12B1660750043AE84 /* ProductRow.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		93834BF62B1664160043AE84 /* ProductView */ = {
+			isa = PBXGroup;
+			children = (
+				93834BEB2B16593D0043AE84 /* ProductView.swift */,
+			);
+			path = ProductView;
+			sourceTree = "<group>";
+		};
+		93834BF92B1681F20043AE84 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				93834BF72B1681ED0043AE84 /* CatalogCellView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		93834BFC2B1687C30043AE84 /* SubCatalogView */ = {
+			isa = PBXGroup;
+			children = (
+				93834BFA2B1687BA0043AE84 /* SubCatalogView.swift */,
+				93834BFF2B1688130043AE84 /* ProductListView */,
+			);
+			path = SubCatalogView;
+			sourceTree = "<group>";
+		};
+		93834BFF2B1688130043AE84 /* ProductListView */ = {
+			isa = PBXGroup;
+			children = (
+				93834BFD2B16880E0043AE84 /* ProductListView.swift */,
+				93834C022B1688E30043AE84 /* Components */,
+			);
+			path = ProductListView;
+			sourceTree = "<group>";
+		};
+		93834C022B1688E30043AE84 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				93834C002B1688DA0043AE84 /* ProductListRow.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +228,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				931EEDEA2B1646BB0006E4AD /* ContentView.swift in Sources */,
+				93834BEC2B16593D0043AE84 /* ProductView.swift in Sources */,
 				931EEDE82B1646BB0006E4AD /* My_fridgeApp.swift in Sources */,
+				93834BF22B1660750043AE84 /* ProductRow.swift in Sources */,
+				93834C012B1688DA0043AE84 /* ProductListRow.swift in Sources */,
+				931EEDF62B164A4C0006E4AD /* MyFridgeView.swift in Sources */,
+				93834BFE2B16880E0043AE84 /* ProductListView.swift in Sources */,
+				931EEDF82B1654230006E4AD /* AddProductView.swift in Sources */,
+				93834BF52B1663960043AE84 /* AddProductManualView.swift in Sources */,
+				93834BFB2B1687BA0043AE84 /* SubCatalogView.swift in Sources */,
+				93834BF82B1681ED0043AE84 /* CatalogCellView.swift in Sources */,
+				93834BEE2B165E720043AE84 /* CatalogView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
