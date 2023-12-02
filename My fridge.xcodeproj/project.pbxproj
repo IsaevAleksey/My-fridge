@@ -20,6 +20,12 @@
 		93834BFB2B1687BA0043AE84 /* SubCatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834BFA2B1687BA0043AE84 /* SubCatalogView.swift */; };
 		93834BFE2B16880E0043AE84 /* ProductListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834BFD2B16880E0043AE84 /* ProductListView.swift */; };
 		93834C012B1688DA0043AE84 /* ProductListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834C002B1688DA0043AE84 /* ProductListRow.swift */; };
+		93834C062B1B4B260043AE84 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834C052B1B4B260043AE84 /* NetworkManager.swift */; };
+		93834C082B1B4B4C0043AE84 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834C072B1B4B4C0043AE84 /* ImageCacheManager.swift */; };
+		93834C0A2B1B4CC90043AE84 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834C092B1B4CC90043AE84 /* Categories.swift */; };
+		93834C0C2B1B4E160043AE84 /* ProductGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834C0B2B1B4E160043AE84 /* ProductGroups.swift */; };
+		93834C0E2B1B52A10043AE84 /* ProductData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834C0D2B1B52A10043AE84 /* ProductData.swift */; };
+		93834C102B1B60100043AE84 /* ProductCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834C0F2B1B60100043AE84 /* ProductCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +43,12 @@
 		93834BFA2B1687BA0043AE84 /* SubCatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCatalogView.swift; sourceTree = "<group>"; };
 		93834BFD2B16880E0043AE84 /* ProductListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListView.swift; sourceTree = "<group>"; };
 		93834C002B1688DA0043AE84 /* ProductListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListRow.swift; sourceTree = "<group>"; };
+		93834C052B1B4B260043AE84 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		93834C072B1B4B4C0043AE84 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
+		93834C092B1B4CC90043AE84 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		93834C0B2B1B4E160043AE84 /* ProductGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductGroups.swift; sourceTree = "<group>"; };
+		93834C0D2B1B52A10043AE84 /* ProductData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductData.swift; sourceTree = "<group>"; };
+		93834C0F2B1B60100043AE84 /* ProductCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,8 +85,10 @@
 				93834BEF2B1660210043AE84 /* MyFridgeView */,
 				93834BF02B1660330043AE84 /* CatalogView */,
 				93834BF62B1664160043AE84 /* ProductView */,
-				931EEDF72B1654230006E4AD /* AddProductView.swift */,
+				93834C032B1B4ACF0043AE84 /* Models */,
+				93834C042B1B4AD90043AE84 /* Services */,
 				93834BF42B1663960043AE84 /* AddProductManualView.swift */,
+				931EEDF72B1654230006E4AD /* AddProductView.swift */,
 				931EEDEB2B1646BC0006E4AD /* Assets.xcassets */,
 				931EEDED2B1646BC0006E4AD /* Preview Content */,
 			);
@@ -158,6 +172,26 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		93834C032B1B4ACF0043AE84 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				93834C092B1B4CC90043AE84 /* Categories.swift */,
+				93834C0B2B1B4E160043AE84 /* ProductGroups.swift */,
+				93834C0D2B1B52A10043AE84 /* ProductData.swift */,
+				93834C0F2B1B60100043AE84 /* ProductCard.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		93834C042B1B4AD90043AE84 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				93834C052B1B4B260043AE84 /* NetworkManager.swift */,
+				93834C072B1B4B4C0043AE84 /* ImageCacheManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -228,14 +262,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93834C062B1B4B260043AE84 /* NetworkManager.swift in Sources */,
+				93834C0A2B1B4CC90043AE84 /* Categories.swift in Sources */,
+				93834C102B1B60100043AE84 /* ProductCard.swift in Sources */,
 				93834BEC2B16593D0043AE84 /* ProductView.swift in Sources */,
 				931EEDE82B1646BB0006E4AD /* My_fridgeApp.swift in Sources */,
 				93834BF22B1660750043AE84 /* ProductRow.swift in Sources */,
 				93834C012B1688DA0043AE84 /* ProductListRow.swift in Sources */,
+				93834C082B1B4B4C0043AE84 /* ImageCacheManager.swift in Sources */,
+				93834C0E2B1B52A10043AE84 /* ProductData.swift in Sources */,
 				931EEDF62B164A4C0006E4AD /* MyFridgeView.swift in Sources */,
 				93834BFE2B16880E0043AE84 /* ProductListView.swift in Sources */,
 				931EEDF82B1654230006E4AD /* AddProductView.swift in Sources */,
 				93834BF52B1663960043AE84 /* AddProductManualView.swift in Sources */,
+				93834C0C2B1B4E160043AE84 /* ProductGroups.swift in Sources */,
 				93834BFB2B1687BA0043AE84 /* SubCatalogView.swift in Sources */,
 				93834BF82B1681ED0043AE84 /* CatalogCellView.swift in Sources */,
 				93834BEE2B165E720043AE84 /* CatalogView.swift in Sources */,
