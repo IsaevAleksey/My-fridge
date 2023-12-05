@@ -18,7 +18,7 @@ struct CatalogView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Text("Каталог")
+                Text("Каталог продуктов")
                     .font(.largeTitle).bold()
                 ScrollView {
                     LazyVGrid(columns: column) {
@@ -31,6 +31,7 @@ struct CatalogView: View {
                 }
             }
         }
+        .navigationTitle(Text("1dfsdfsdf"))
         .padding()
         .task {
             await viewModel.fetchCategoriesList()
