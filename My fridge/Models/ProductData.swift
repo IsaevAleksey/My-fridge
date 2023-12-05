@@ -22,39 +22,40 @@ struct Product: Codable {
     let id: Int
     let title: String
     let totalRating: Double
-    let manufacturer, price: String
+    let manufacturer: String
     let thumbnail: String
     let hasQualityMark: Bool?
-    let criteriaRatings: [CriteriaRating]
+    let categoryName: String
+//    let criteriaRatings: [CriteriaRating]
     let hasBadQualityMark: Bool?
 
-    enum CodingKeys: String, CodingKey {
-        case id, title
-        case totalRating
-        case manufacturer, price, thumbnail
-        case hasQualityMark
-        case criteriaRatings
-        case hasBadQualityMark
-    }
+//    enum CodingKeys: String, CodingKey {
+//        case id, title
+//        case totalRating
+//        case manufacturer, price, thumbnail
+//        case hasQualityMark
+//        case criteriaRatings
+//        case hasBadQualityMark
+//    }
 }
 
 // MARK: - CriteriaRating
-struct CriteriaRating: Codable {
-    let title: Title
-    let value: Double
-}
+//struct CriteriaRating: Codable {
+//    let title: Title
+//    let value: Double
+//}
 
-enum Title: String, Codable {
-    case безопасность = "Безопасность "
-    case достоверностьМаркировки = "Достоверность маркировки"
-    case качество = "Качество"
-    case консерванты = "Консерванты"
-    case красители = "Красители"
-    case микробиология = "Микробиология"
-    case органолептическиеПоказатели = "Органолептические показатели"
-    case основныеПищевыеВещества = "Основные пищевые вещества"
-    case пестициды = "Пестициды"
-    case токсины = "Токсины"
-    case физикоХимическиеПоказатели = "Физико-химические показатели"
-}
+//enum Title: String, Codable {
+//    case безопасность = "Безопасность "
+//    case достоверностьМаркировки = "Достоверность маркировки"
+//    case качество = "Качество"
+//    case консерванты = "Консерванты"
+//    case красители = "Красители"
+//    case микробиология = "Микробиология"
+//    case органолептическиеПоказатели = "Органолептические показатели"
+//    case основныеПищевыеВещества = "Основные пищевые вещества"
+//    case пестициды = "Пестициды"
+//    case токсины = "Токсины"
+//    case физикоХимическиеПоказатели = "Физико-химические показатели"
+//}
 

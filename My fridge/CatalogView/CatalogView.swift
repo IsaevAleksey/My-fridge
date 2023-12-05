@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CatalogView: View {
+    @StateObject var viewModel: CatalogViewModel
+
     private let column = [
         GridItem(.flexible()),
         GridItem(.flexible())
@@ -15,24 +17,29 @@ struct CatalogView: View {
     
     var body: some View {
         NavigationStack {
-            LazyVGrid(columns: column) {
-                CatalogCellView()
-                CatalogCellView()
-                CatalogCellView()
-                CatalogCellView()
-
-                
-    //            ForEach(viewModel.prob.sorted(by: { $0.key < $1.key }), id: \.key) {
-    //                (score, probability) in
-    //                GridItemView(score: score, probability: probability)
-    //            }
+            VStack {
+                Text("Каталог")
+                    .font(.largeTitle).bold()
+                ScrollView {
+                    LazyVGrid(columns: column) {
+                        ForEach(viewModel.rows, id: \.categoryId) {subCatalogViewModel in
+                            NavigationLink(destination: SubCatalogView(viewModel: subCatalogViewModel), label: {
+                                CatalogCellView(title: subCatalogViewModel.categoryTitle, imageUrl: subCatalogViewModel.categoryImageUrl)
+                            })
+                        }
+                    }
+                }
             }
+        }
+        .padding()
+        .task {
+            await viewModel.fetchCategoriesList()
         }
     }
 }
 
 struct CatalogView_Previews: PreviewProvider {
     static var previews: some View {
-        CatalogView()
+        CatalogView(viewModel: CatalogViewModel())
     }
 }

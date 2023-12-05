@@ -8,30 +8,34 @@
 import SwiftUI
 
 struct SubCatalogView: View {
+    @StateObject var viewModel: SubCatalogViewModel
+    
     private let column = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
     
     var body: some View {
-        LazyVGrid(columns: column) {
-            CatalogCellView()
-            CatalogCellView()
-            CatalogCellView()
-            CatalogCellView()
-            CatalogCellView()
-
-            
-//            ForEach(viewModel.prob.sorted(by: { $0.key < $1.key }), id: \.key) {
-//                (score, probability) in
-//                GridItemView(score: score, probability: probability)
-//            }
+        ScrollView {
+            LazyVGrid(columns: column) {
+                ForEach(viewModel.rows, id: \.productGroupId) {productListViewModel in
+                    NavigationLink(destination: ProductsListView(viewModel: productListViewModel), label: {
+                        CatalogCellView(title: productListViewModel.productGroupTitle, imageUrl: productListViewModel.productGroupImageUrl)
+                    })
+                }
+            }
+            .navigationTitle("Категории")
+            .padding()
+        }
+        .task {
+            await viewModel.fetchSubCategoriesList(id: viewModel.categoryId)
+            print(viewModel.categoryId)
         }
     }
 }
 
 struct SubCatalogView_Previews: PreviewProvider {
     static var previews: some View {
-        SubCatalogView()
+        SubCatalogView(viewModel: SubCatalogViewModel(category: Category(id: 5, title: "", icon: "", thumbnail: "String")))
     }
 }

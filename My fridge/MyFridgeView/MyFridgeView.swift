@@ -16,7 +16,7 @@ struct MyFridgeView: View {
             TabView {
                 VStack {
                     Text("Мой холодильник")
-                        .font(.largeTitle)
+                        .font(.largeTitle).bold()
                     List {
                         ProductRow()
                         ProductRow()
@@ -41,7 +41,7 @@ struct MyFridgeView: View {
                     Image(systemName: "refrigerator")
                     Text("Home")
                 }
-                CatalogView()
+                CatalogView(viewModel: CatalogViewModel())
                 .tabItem {
                     Image(systemName: "list.bullet")
                     Text("Catalog")

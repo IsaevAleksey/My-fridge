@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ProductView: View {
+    @StateObject var viewModel: ProductViewModel
+
+    
     var body: some View {
         VStack {
             Text("Название продукта")
@@ -25,6 +28,6 @@ struct ProductView: View {
 
 struct ProductView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductView()
+        ProductView(viewModel: ProductViewModel(product: Product(id: 10, title: "", totalRating: 2.0, manufacturer: "", thumbnail: "", hasQualityMark: true, categoryName: "", hasBadQualityMark: true)))
     }
 }

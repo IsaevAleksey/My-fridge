@@ -19,7 +19,6 @@ struct ProductCard: Codable {
     let description: String
     let productLink: String
     let categoryName, manufacturer: String
-    let research: Research
     let recommendations: [Recommendation]
     let worth: [String]
     let productInfo: [ProductInfo]
@@ -36,7 +35,7 @@ struct ProductCard: Codable {
         case description
         case productLink
         case categoryName
-        case manufacturer, research, recommendations, worth
+        case manufacturer, recommendations, worth
         case productInfo
         case criteriaRatings
         case hasQualityMark
@@ -84,16 +83,3 @@ struct Recommendation: Codable {
     }
 }
 
-// MARK: - Research
-struct Research: Codable {
-    let id: Int
-    let title, productGroup: String
-    let image: String
-    let date: Date
-
-    enum CodingKeys: String, CodingKey {
-        case id, title
-        case productGroup
-        case image, date
-    }
-}
