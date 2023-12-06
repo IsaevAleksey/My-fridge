@@ -32,17 +32,38 @@ class ProductViewModel: ObservableObject {
         product.manufacturer
     }
     
-    var productInfoName: [String] {
-        var productInfoName = [""]
-        productInfoName = productCard?.productInfo.map {$0.name} ?? []
-        return productInfoName
-    }
-    
-    var productInfoInfo: [String] {
-        var productInfoInfo = [""]
-        productInfoInfo = productCard?.productInfo.map {$0.info} ?? []
-        return productInfoInfo
-    }
+    var productInfoStats: [String:String] {
+        var productInform: [String:String] = [:]
+        guard let productInfo = productCard?.productInfo else {return [:]}
+        var name: [String] = productInfo.map {$0.name}
+        var info: [String] = productInfo.map {$0.info}
+        
+        for i in 0..<name.count {
+            let key = name[i]
+            productInform[key] = info[i]
+        }
+        return productInform
+            
+//        for i in 0...productInfo.count {
+//            for j in 0...productInfo.count {
+//                let info = poissonProbability(for: i, and: j)
+//                let stats = "\(i)-\(j)"
+//                productInform.append(stats)
+//                stats[key] = probability
+//            }
+        }
+        
+        
+//        var productInfoName = [""]
+//        productInfoName = productCard?.productInfo.map {$0.name} ?? []
+//        return productInfoName
+//    }
+//
+//    var productInfoInfo: [String] {
+//        var productInfoInfo = [""]
+//        productInfoInfo = productCard?.productInfo.map {$0.info} ?? []
+//        return productInfoInfo
+//    }
 //    var productDescription: String {
 //        productCard?.description ?? "Описание отсутствует"
 //    }

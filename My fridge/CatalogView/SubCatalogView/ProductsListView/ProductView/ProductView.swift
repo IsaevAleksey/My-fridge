@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProductView: View {
     @StateObject var viewModel: ProductViewModel
+    
     var body: some View {
         VStack {
             HStack {
@@ -22,9 +23,12 @@ struct ProductView: View {
                 Text(String(format: "%.2f", viewModel.productRating))
                 Image(systemName: "star.leadinghalf.filled")
                     .foregroundColor(.yellow)
-                
             }
-            ProductInfoView(name: viewModel.productInfoName, info: viewModel.productInfoInfo)
+            
+            ForEach(viewModel.productInfoStats.sorted(by: { $0.key < $1.key }), id: \.key) { (name, info) in
+                ProductInfoView(name: name, info: info)
+            }
+//            ProductInfoView(name: viewModel.productInfoName, info: viewModel.productInfoInfo)
 //            Text(viewModel.productCard?.description ?? "sfs")
             Spacer()
         }

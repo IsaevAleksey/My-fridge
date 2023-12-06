@@ -8,28 +8,28 @@
 import SwiftUI
 
 struct ProductInfoView: View {
-    let name: [String]
-    let info: [String]
+    let name: String
+    let info: String
     
     var body: some View {
+//            ForEach(name, id: \.description) { nameInfo in
+//                Text(nameInfo)
+//            }
+//        ForEach(info, id: \.description) { infoInfo in
+//                Text(infoInfo)
+//                }
+//
+//
         HStack {
-            List(name, id: \.description) { nameInfo in
-                Text(nameInfo)
-            }
-            List(info, id: \.description) { infoInfo in
-                Text(infoInfo)
-                }
+            Text(name)
+            Spacer()
+            Text(info)
         }
-        
-//        HStack {
-//            Text(name)
-//            Text(info)
-//        }
     }
 }
 
-struct ProductInfo_Previews: PreviewProvider {
+struct ProductInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductInfoView(name: ["String"], info: ["String"])
+        ProductInfoView(name: "String", info: "String")
     }
 }
