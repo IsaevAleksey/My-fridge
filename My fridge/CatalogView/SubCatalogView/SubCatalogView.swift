@@ -24,8 +24,8 @@ struct SubCatalogView: View {
                     })
                 }
             }
-            .navigationTitle("Категории")
-            .padding()
+            .navigationTitle(viewModel.categoryTitle)
+//            .padding()
         }
         .task {
             await viewModel.fetchSubCategoriesList(id: viewModel.categoryId)

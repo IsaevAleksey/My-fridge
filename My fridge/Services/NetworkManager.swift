@@ -65,6 +65,24 @@ final class NetworkManager {
         }
         return productData
     }
+    
+    func fetchProductCard(id: Int) async throws -> ProductCardData {
+
+        guard let url = URL(string: "https://rskrf.ru/rest/1/product/\(id)/") else {
+            throw NetworkError.invalidURL
+        }
+        
+        guard let (data, _) = try? await URLSession.shared.data(from: url) else {
+            throw NetworkError.noData
+        }
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        guard let productCardData = try? decoder.decode(ProductCardData.self, from: data) else {
+            throw NetworkError.decodingError
+        }
+        return productCardData
+    }
+    
 //    func fetchFixturesList(leagueID: Int, currentSeason: Int, fromDate: String, toDate: String) async throws -> FixturesList {
 //        var request = URLRequest(
 //            url: URL(string: "https://v3.football.api-sports.io/fixtures?league=\(leagueID)&season=\(currentSeason)&from=\(fromDate)&to=\(toDate)")!,

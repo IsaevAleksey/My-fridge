@@ -16,6 +16,7 @@ struct ProductListRow: View {
     var body: some View {
         HStack {
             ProductLogoImage(productLogoUrl: imageUrl)
+                .frame(width: 50, height: 50)
             VStack {
                 Text(title)
                 Text(productManufacturer) // не переносить больше двух строк

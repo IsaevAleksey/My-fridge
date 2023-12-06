@@ -17,7 +17,7 @@ struct ProductsListView: View {
                     ProductListRow(title: productViewModel.productTitle, imageUrl: productViewModel.productImageUrl, productRating: productViewModel.productRating, productManufacturer: productViewModel.productManufacturer)
                         .frame(height: 60)
                 }
-                .navigationTitle("Продукты")
+                .navigationTitle(viewModel.productGroupTitle)
             }
             .listStyle(.plain)
         .task {

@@ -16,7 +16,8 @@ struct ProductLogoImage: View {
             case .success(let image):
                 image
                     .resizable()
-                    .frame(width: 50, height: 50)              .aspectRatio(contentMode: .fill)
+//                    .frame(width: 50, height: 50)
+                    .aspectRatio(contentMode: .fill)
                     .cornerRadius(10)
             case .empty:
                 ProgressView()
