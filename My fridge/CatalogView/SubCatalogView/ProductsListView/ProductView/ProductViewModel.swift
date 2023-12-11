@@ -35,8 +35,8 @@ class ProductViewModel: ObservableObject {
     var productInfoStats: [String:String] {
         var productInform: [String:String] = [:]
         guard let productInfo = productCard?.productInfo else {return [:]}
-        var name: [String] = productInfo.map {$0.name}
-        var info: [String] = productInfo.map {$0.info}
+        let name: [String] = productInfo.map {$0.name}
+        let info: [String] = productInfo.map {$0.info}
         
         for i in 0..<name.count {
             let key = name[i]
