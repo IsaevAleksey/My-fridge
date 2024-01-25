@@ -32,26 +32,37 @@ class ProductViewModel: ObservableObject {
         product.manufacturer
     }
     
-    var productInfoStats: [String:String] {
-        var productInform: [String:String] = [:]
-        guard let productInfo = productCard?.productInfo else {return [:]}
-        let name: [String] = productInfo.map {$0.name}
-        let info: [String] = productInfo.map {$0.info}
-        
-        for i in 0..<name.count {
-            let key = name[i]
-            productInform[key] = info[i]
-        }
-        return productInform
-            
-//        for i in 0...productInfo.count {
-//            for j in 0...productInfo.count {
-//                let info = poissonProbability(for: i, and: j)
-//                let stats = "\(i)-\(j)"
-//                productInform.append(stats)
-//                stats[key] = probability
-//            }
-        }
+    var productDescription: String {
+        productCard?.description ?? "Нет данных"
+    }
+    
+    var productWorth: [String] {
+        productCard?.worth ?? []
+    }
+    
+    var criteriaRatings: [CriteriaRating] {
+        productCard?.criteriaRatings ?? []
+    }
+    
+//    var productRecommendations: [String:Double] {
+//        var recomendations: [String:Double] = [:]
+//        guard let productRecommendations = productCard?.recommendations else {return [:]}
+//        let criteria = productRecommendations.map {$0.criteriaRatings}
+//        
+//    }
+    
+//    var productInfoStats: [String:String] {
+//        var productInform: [String:String] = [:]
+//        guard let productInfo = productCard?.productInfo else {return [:]}
+//        let name: [String] = productInfo.map {$0.name ?? "Нет данных"}
+//        let info: [String] = productInfo.map {$0.info ?? "Нет данных"}
+//        
+//        for i in 0..<name.count {
+//            let key = name[i]
+//            productInform[key] = info[i]
+//        }
+//        return productInform
+//    }
         
         
 //        var productInfoName = [""]
@@ -80,9 +91,9 @@ class ProductViewModel: ObservableObject {
     
     @MainActor func fetchPoductCard(id: Int) async {
         do {
+            print("запрос карточки \(id)")
             productCard = try await NetworkManager.shared.fetchProductCard(id: id).response
             objectWillChange.send(self)
-            print("запрос карточки")
         }
         catch {
             print(error)

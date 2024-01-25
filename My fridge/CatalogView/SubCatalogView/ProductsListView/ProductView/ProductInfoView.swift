@@ -8,28 +8,43 @@
 import SwiftUI
 
 struct ProductInfoView: View {
-    let name: String
-    let info: String
+    let worth: [String]
+    
+    
     
     var body: some View {
-//            ForEach(name, id: \.description) { nameInfo in
-//                Text(nameInfo)
-//            }
-//        ForEach(info, id: \.description) { infoInfo in
-//                Text(infoInfo)
-//                }
-//
-//
-        HStack {
-            Text(name)
-            Spacer()
-            Text(info)
+        VStack(alignment: .leading) {
+            ForEach(worth, id: \.self) { parametr in
+                HStack(alignment: .top) {
+                    Image(systemName: "chevron.up.circle").foregroundColor(.green)
+                    Text(parametr)
+                }
+            }
         }
+        .padding(.horizontal, 6.0)
+        .padding(.bottom)
+    }
+}
+
+struct CriteriaRatingView: View {
+    let criteriaRating: CriteriaRating
+
+    var body: some View {
+        HStack {
+            Text(criteriaRating.title ?? "Unknown")
+//                .font(.subheadline)
+            Spacer()
+            Text(String(format: "%.2f", criteriaRating.value ?? 0))
+
+//            Text("\(criteriaRating.value ?? 0)")
+//                .font(.subheadline)
+        }
+        .padding(.horizontal)
     }
 }
 
 struct ProductInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductInfoView(name: "String", info: "String")
+        ProductInfoView(worth: ["String", "assfsdf", "werw"])
     }
 }

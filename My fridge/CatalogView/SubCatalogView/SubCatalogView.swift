@@ -27,6 +27,7 @@ struct SubCatalogView: View {
             .navigationTitle(viewModel.categoryTitle)
 //            .padding()
         }
+        .padding()
         .task {
             await viewModel.fetchSubCategoriesList(id: viewModel.categoryId)
             print(viewModel.categoryId)

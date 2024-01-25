@@ -21,6 +21,7 @@ struct ProductListRow: View {
                 Text(title)
                 Text(productManufacturer) // не переносить больше двух строк
             }
+            Spacer()
             HStack {
                 Text(String(format: "%.2f", productRating))
                 Image(systemName: "star.leadinghalf.filled")

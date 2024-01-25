@@ -12,28 +12,38 @@ struct ProductView: View {
     
     var body: some View {
         VStack {
-            HStack {
+            HStack(alignment: .center) {
                 ProductLogoImage(productLogoUrl: viewModel.productImageUrl)
                     .frame(width: 100, height: 100)
                 VStack {
-                    Text(viewModel.productManufacturer)
+//                    Text(viewModel.productManufacturer)
                     Text(viewModel.productTitle)
+                        .frame(height: 100)
+                        .minimumScaleFactor(0.7)
                 }
+//                .frame(height: 100)
                 Spacer()
                 Text(String(format: "%.2f", viewModel.productRating))
                 Image(systemName: "star.leadinghalf.filled")
                     .foregroundColor(.yellow)
             }
-            
-            ForEach(viewModel.productInfoStats.sorted(by: { $0.key < $1.key }), id: \.key) { (name, info) in
-                ProductInfoView(name: name, info: info)
+            .padding(.horizontal)
+            .task {
+                await viewModel.fetchPoductCard(id: viewModel.productId)
             }
+            ProductInfoView(worth: viewModel.productWorth)
+            ForEach(viewModel.criteriaRatings, id: \.self) {rating in
+                CriteriaRatingView(criteriaRating: rating)
+            }
+//            Text(viewModel.productDescription).minimumScaleFactor(0.7)
+            
+//            ForEach(viewModel.productInfoStats.sorted(by: { $0.key < $1.key }), id: \.key) { (name, info) in
+//                ProductInfoView(name: name, info: info)
+//            }
+//            .padding(8.0)
 //            ProductInfoView(name: viewModel.productInfoName, info: viewModel.productInfoInfo)
 //            Text(viewModel.productCard?.description ?? "sfs")
             Spacer()
-        }
-        .task {
-            await viewModel.fetchPoductCard(id: viewModel.productId)
         }
     }
 }
