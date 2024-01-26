@@ -45,6 +45,7 @@ struct ProductView: View {
 //            Text(viewModel.productCard?.description ?? "sfs")
             Spacer()
         }
+        .padding(.top)
     }
 }
 

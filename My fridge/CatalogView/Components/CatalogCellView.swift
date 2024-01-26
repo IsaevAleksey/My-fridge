@@ -15,6 +15,7 @@ struct CatalogCellView: View {
         VStack {
             CatalogLogoImage(catalogLogoURL: imageUrl)
             Text(title)
+                .foregroundColor(Color("BackgroundColor"))
                 .multilineTextAlignment(.center)
                 .lineLimit(1)
         }

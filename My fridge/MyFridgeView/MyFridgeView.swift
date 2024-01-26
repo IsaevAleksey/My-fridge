@@ -16,6 +16,7 @@ struct MyFridgeView: View {
             TabView {
                 VStack {
                     Text("Мой холодильник")
+                        .foregroundColor(Color("BackgroundColor"))
                         .font(.largeTitle).bold()
                     List {
                         ProductRow()
@@ -23,6 +24,7 @@ struct MyFridgeView: View {
                         ProductRow()
                         ProductRow()
                     }
+                    .navigationTitle("asdasd")
 //                    .background(Color.yellow)
 //                    .scrollContentBackground(.hidden)
                     Button(action: {
@@ -30,7 +32,7 @@ struct MyFridgeView: View {
                     }) {
                         Text("Добавить продукт")
                             .frame(width: 200,height: 35)
-                            .background(Color.black)
+                            .background(Color("BackgroundColor"))
                             .foregroundColor(Color.white)
                             .cornerRadius(20)
                             .shadow(radius: 10)
@@ -51,15 +53,17 @@ struct MyFridgeView: View {
                     Text("Catalog")
                 }
             }
+            .accentColor(.yellow)
             .onAppear() {
                 let tabBarAppearance = UITabBarAppearance()
                 tabBarAppearance.configureWithOpaqueBackground()
-                tabBarAppearance.backgroundColor = UIColor.systemGray6
+                tabBarAppearance.backgroundColor = UIColor(named: "BackgroundColor")
                 UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
                 UITabBar.appearance().standardAppearance = tabBarAppearance
 //                UITabBar.appearance().backgroundColor = .gray
             }
         }
+        .accentColor(Color("BackgroundColor"))
     }
 }
 
