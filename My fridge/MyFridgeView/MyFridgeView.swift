@@ -19,9 +19,12 @@ struct MyFridgeView: View {
                         .font(.largeTitle).bold()
                     List {
                         ProductRow()
+//                            .listRowBackground(Color(.yellow))
                         ProductRow()
                         ProductRow()
                     }
+//                    .background(Color.yellow)
+//                    .scrollContentBackground(.hidden)
                     Button(action: {
                         self.showAddProductView.toggle()
                     }) {
@@ -37,6 +40,7 @@ struct MyFridgeView: View {
                     })
                     Spacer()
                 }
+                .background(Color(.systemGroupedBackground))
                 .tabItem {
                     Image(systemName: "refrigerator")
                     Text("Home")
@@ -46,6 +50,14 @@ struct MyFridgeView: View {
                     Image(systemName: "list.bullet")
                     Text("Catalog")
                 }
+            }
+            .onAppear() {
+                let tabBarAppearance = UITabBarAppearance()
+                tabBarAppearance.configureWithOpaqueBackground()
+                tabBarAppearance.backgroundColor = UIColor.systemGray6
+                UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+                UITabBar.appearance().standardAppearance = tabBarAppearance
+//                UITabBar.appearance().backgroundColor = .gray
             }
         }
     }

@@ -27,7 +27,7 @@ struct ProductView: View {
                 Image(systemName: "star.leadinghalf.filled")
                     .foregroundColor(.yellow)
             }
-            .padding(.horizontal)
+            .padding([.leading, .bottom, .trailing])
             .task {
                 await viewModel.fetchPoductCard(id: viewModel.productId)
             }
