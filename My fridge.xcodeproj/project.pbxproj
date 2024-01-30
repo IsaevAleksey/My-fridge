@@ -34,6 +34,8 @@
 		93834C1D2B1E643F0043AE84 /* ProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834C1C2B1E643F0043AE84 /* ProductViewModel.swift */; };
 		93834C252B1F8E650043AE84 /* ProductLogoImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834C242B1F8E650043AE84 /* ProductLogoImage.swift */; };
 		93834C272B20F1CF0043AE84 /* ProductInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834C262B20F1CF0043AE84 /* ProductInfoView.swift */; };
+		93B24FE82B69636A0034B245 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B24FE72B69636A0034B245 /* ScannerView.swift */; };
+		93B24FEC2B696E6D0034B245 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B24FEB2B696E6D0034B245 /* Scanner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +67,8 @@
 		93834C1C2B1E643F0043AE84 /* ProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewModel.swift; sourceTree = "<group>"; };
 		93834C242B1F8E650043AE84 /* ProductLogoImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductLogoImage.swift; sourceTree = "<group>"; };
 		93834C262B20F1CF0043AE84 /* ProductInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInfoView.swift; sourceTree = "<group>"; };
+		93B24FE72B69636A0034B245 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
+		93B24FEB2B696E6D0034B245 /* Scanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,11 +104,10 @@
 				931EEDE72B1646BB0006E4AD /* My_fridgeApp.swift */,
 				93834BEF2B1660210043AE84 /* MyFridgeView */,
 				93834BF02B1660330043AE84 /* CatalogView */,
+				93B24FE62B6960F50034B245 /* AddProductView */,
 				93834C032B1B4ACF0043AE84 /* Models */,
 				93834C042B1B4AD90043AE84 /* Services */,
 				93834C192B1E46540043AE84 /* Utils */,
-				93834BF42B1663960043AE84 /* AddProductManualView.swift */,
-				931EEDF72B1654230006E4AD /* AddProductView.swift */,
 				931EEDEB2B1646BC0006E4AD /* Assets.xcassets */,
 				931EEDED2B1646BC0006E4AD /* Preview Content */,
 			);
@@ -224,6 +227,25 @@
 			path = ProductView;
 			sourceTree = "<group>";
 		};
+		93B24FE62B6960F50034B245 /* AddProductView */ = {
+			isa = PBXGroup;
+			children = (
+				931EEDF72B1654230006E4AD /* AddProductView.swift */,
+				93B24FEA2B696E590034B245 /* Components */,
+				93834BF42B1663960043AE84 /* AddProductManualView.swift */,
+			);
+			path = AddProductView;
+			sourceTree = "<group>";
+		};
+		93B24FEA2B696E590034B245 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				93B24FE72B69636A0034B245 /* ScannerView.swift */,
+				93B24FEB2B696E6D0034B245 /* Scanner.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -298,6 +320,7 @@
 				93834C062B1B4B260043AE84 /* NetworkManager.swift in Sources */,
 				93834C162B1E3CE30043AE84 /* CacheAsyncImage.swift in Sources */,
 				93834C0A2B1B4CC90043AE84 /* Categories.swift in Sources */,
+				93B24FEC2B696E6D0034B245 /* Scanner.swift in Sources */,
 				93834C102B1B60100043AE84 /* ProductCard.swift in Sources */,
 				93834BEC2B16593D0043AE84 /* ProductView.swift in Sources */,
 				931EEDE82B1646BB0006E4AD /* My_fridgeApp.swift in Sources */,
@@ -311,6 +334,7 @@
 				93834BFE2B16880E0043AE84 /* ProductsListView.swift in Sources */,
 				931EEDF82B1654230006E4AD /* AddProductView.swift in Sources */,
 				93834C1B2B1E48E50043AE84 /* ProductsListViewModel.swift in Sources */,
+				93B24FE82B69636A0034B245 /* ScannerView.swift in Sources */,
 				93834BF52B1663960043AE84 /* AddProductManualView.swift in Sources */,
 				93834C0C2B1B4E160043AE84 /* ProductGroups.swift in Sources */,
 				93834C182B1E3D6E0043AE84 /* CatalogLogoImage.swift in Sources */,
@@ -450,11 +474,13 @@
 				DEVELOPMENT_TEAM = S8C8X7JYR4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "My-fridge-Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Необходимо разрешить доступ к камере для сканирования штрих-кода";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -463,9 +489,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "IsaevAleksey.My-fridge";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -480,11 +509,13 @@
 				DEVELOPMENT_TEAM = S8C8X7JYR4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "My-fridge-Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Необходимо разрешить доступ к камере для сканирования штрих-кода";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -493,9 +524,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "IsaevAleksey.My-fridge";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -8,14 +8,28 @@
 import SwiftUI
 
 struct AddProductView: View {
-    @State private var date = Date()
     @State var showAddProductManualView = false
+    @State private var date = Date()
+    @State private var scannedCode: String?
+    @State private var isShowingScanner = false
     
     var body: some View {
         NavigationStack {
             VStack {
 //                Text("Добавить продукт")
 //                    .font(.largeTitle)
+                VStack {
+                    if let scannedCode = scannedCode {
+                        Text("Scanned Code: \(scannedCode)")
+                    } else {
+                        Button("Scan Barcode") {
+                            self.isShowingScanner = true
+                        }
+                    }
+                }
+                .sheet(isPresented: $isShowingScanner) {
+                    ScannerView(scannedCode: self.$scannedCode)
+                }
                 Spacer()
                 Text("Штрихкод")
                 Spacer()
@@ -29,7 +43,7 @@ struct AddProductView: View {
                 } label: {
                     Text("Добавить вручную")
                         .frame(width: 200,height: 35)
-                        .background(Color.black)
+                        .background(Color("BackgroundColor"))
                         .foregroundColor(Color.white)
                         .cornerRadius(20)
                         .shadow(radius: 10)
