@@ -16,8 +16,8 @@ struct AddProductView: View {
     var body: some View {
         NavigationStack {
             VStack {
-//                Text("Добавить продукт")
-//                    .font(.largeTitle)
+                Text("Добавить продукт")
+                    .font(.largeTitle).bold()
                 VStack {
                     if let scannedCode = scannedCode {
                         Text("Scanned Code: \(scannedCode)")
@@ -31,13 +31,18 @@ struct AddProductView: View {
                     ScannerView(scannedCode: self.$scannedCode)
                 }
                 Spacer()
-                Text("Штрихкод")
-                Spacer()
+                ScannerView(scannedCode: self.$scannedCode)
+                    .overlay(RoundedRectangle(cornerRadius: 20).stroke())
+
+//                    .border(Color("BackgroundColor"))
+//                    .clipShape(RoundedRectangle(cornerRadius: 20))
+//                Text("Штрихкод")
                 DatePicker(
                     "Срок годности до",
                     selection: $date,
                     displayedComponents: [.date]
                 )
+                .padding(.vertical)
                 NavigationLink {
                     AddProductManualView()
                 } label: {
@@ -49,7 +54,7 @@ struct AddProductView: View {
                         .shadow(radius: 10)
                 }
             }
-            .navigationTitle("Добавить продукт")
+//            .navigationTitle("Добавить продукт")
             .padding()
         }
     }

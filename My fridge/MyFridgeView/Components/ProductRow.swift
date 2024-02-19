@@ -10,14 +10,20 @@ import SwiftUI
 struct ProductRow: View {
     var body: some View {
         HStack {
-            Text("Название продукта")
-                .multilineTextAlignment(.leading)
-            Spacer()
-            VStack {
-                Text("Срок годности")
-                    .fontWeight(.thin)
-                Text("10.11.2023")
+            VStack(alignment: .leading) {
+                Text("Название продукта")
+                    .bold()
+                Text("Производитель")
+                HStack {
+                    Text("Срок годности")
+                        .fontWeight(.thin)
+                    Text("10.11.2023")
+                }
             }
+            Spacer()
+            Image(systemName: "xmark.shield")
+                .resizable()
+                .frame(width: 50, height:50)
         }
     }
 }
