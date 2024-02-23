@@ -9,8 +9,8 @@ import SwiftUI
 
 struct MyFridgeView: View {
     @State var showAddProductView = false
+    @StateObject var viewModel: MyFridgeViewModel
 
-    
     var body: some View {
         NavigationStack {
             TabView {
@@ -19,12 +19,15 @@ struct MyFridgeView: View {
                         .foregroundColor(Color("BackgroundColor"))
                         .font(.largeTitle).bold()
                     List {
-                        ProductRow()
-//                            .listRowBackground(Color(.yellow))
-                        ProductRow()
-                        ProductRow()
+                        ForEach(viewModel.rows, id: \.title) { productCard in
+                            ProductRow(productTitle: productCard.title ?? "Данные отсутствуют", manufacturer: productCard.manufacturer ?? "Данные отсутствуют", productImageUrl: productCard.thumbnail ?? "Данные отсутствуют")
+                                .frame(height: 60)
+                        }
+                        .onDelete { indexSet in
+                            StorageManager.shared.deleteAddedProduct(at: indexSet)
+                        }
                     }
-                    .navigationTitle("asdasd")
+                    .opacity(viewModel.rows.isEmpty ? 0 : 1)
 //                    .background(Color.yellow)
 //                    .scrollContentBackground(.hidden)
                     Button(action: {
@@ -55,20 +58,23 @@ struct MyFridgeView: View {
             }
             .accentColor(.yellow)
             .onAppear() {
+                viewModel.fetchAddedProducts()
                 let tabBarAppearance = UITabBarAppearance()
                 tabBarAppearance.configureWithOpaqueBackground()
                 tabBarAppearance.backgroundColor = UIColor(named: "BackgroundColor")
                 UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
                 UITabBar.appearance().standardAppearance = tabBarAppearance
-//                UITabBar.appearance().backgroundColor = .gray
             }
         }
         .accentColor(Color("BackgroundColor"))
+//        .onAppear {
+//            viewModel.fetchAddedProducts()
+//        }
     }
 }
 
 struct MyFridgeView_Previews: PreviewProvider {
     static var previews: some View {
-        MyFridgeView()
+        MyFridgeView(viewModel: MyFridgeViewModel())
     }
 }

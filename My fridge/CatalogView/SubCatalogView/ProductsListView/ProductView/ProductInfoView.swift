@@ -10,8 +10,6 @@ import SwiftUI
 struct ProductInfoView: View {
     let worth: [String]
     
-    
-    
     var body: some View {
         VStack(alignment: .leading) {
             ForEach(worth, id: \.self) { parametr in

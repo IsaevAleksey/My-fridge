@@ -44,6 +44,24 @@ struct ProductView: View {
 //            ProductInfoView(name: viewModel.productInfoName, info: viewModel.productInfoInfo)
 //            Text(viewModel.productCard?.description ?? "sfs")
             Spacer()
+            Button {
+                guard let productCard = viewModel.productCard else {return}
+                StorageManager.shared.addProduct(productCard: productCard)
+            } label: {
+                Text("Добавить")
+                    .frame(width: 200,height: 35)
+                    .background(Color("BackgroundColor"))
+                    .foregroundColor(Color.white)
+                    .cornerRadius(20)
+                    .shadow(radius: 10)
+            }
+
+//            Text("Добавить")
+//                .frame(width: 200,height: 35)
+//                .background(Color("BackgroundColor"))
+//                .foregroundColor(Color.white)
+//                .cornerRadius(20)
+//                .shadow(radius: 10)
         }
         .padding(.top)
     }

@@ -21,11 +21,11 @@ struct ProductList: Codable {
 struct Product: Codable {
     let id: Int
     let title: String
-    let totalRating: Double
-    let manufacturer: String
-    let thumbnail: String
+    let totalRating: Double?
+    let manufacturer: String?
+    let thumbnail: String?
     let hasQualityMark: Bool?
-    let categoryName: String
+    let categoryName: String?
 //    let criteriaRatings: [CriteriaRating]
     let hasBadQualityMark: Bool?
 

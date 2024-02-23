@@ -44,7 +44,7 @@ struct AddProductView: View {
                 )
                 .padding(.vertical)
                 NavigationLink {
-                    AddProductManualView()
+                    AddProductManualView(viewModel: AddProductManualViewModel())
                 } label: {
                     Text("Добавить вручную")
                         .frame(width: 200,height: 35)

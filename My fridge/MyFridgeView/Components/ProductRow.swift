@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct ProductRow: View {
+    var productTitle: String
+    var manufacturer: String
+    var productImageUrl: String
+    
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text("Название продукта")
+                Text(productTitle)
                     .bold()
-                Text("Производитель")
+                Text(manufacturer)
                 HStack {
                     Text("Срок годности")
                         .fontWeight(.thin)
@@ -21,15 +25,14 @@ struct ProductRow: View {
                 }
             }
             Spacer()
-            Image(systemName: "xmark.shield")
-                .resizable()
-                .frame(width: 50, height:50)
+            ProductLogoImage(productLogoUrl: productImageUrl)
+                .frame(width: 50, height: 50)
         }
     }
 }
 
 struct ProductRow_Previews: PreviewProvider {
     static var previews: some View {
-        ProductRow()
+        ProductRow(productTitle: "Название продукта", manufacturer: "Производитель", productImageUrl: "")
     }
 }

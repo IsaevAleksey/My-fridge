@@ -8,7 +8,7 @@ import Combine
 import Foundation
 
 class ProductViewModel: ObservableObject {
-    @Published var rows: [ProductViewModel] = []
+//    @Published var rows: [ProductViewModel] = []
     var objectWillChange = PassthroughSubject<ProductViewModel, Never>()
     var productCard: ProductCard?
     
@@ -21,15 +21,15 @@ class ProductViewModel: ObservableObject {
     }
     
     var productRating: Double {
-        product.totalRating
+        product.totalRating ?? 0.0
     }
     
     var productImageUrl: String {
-        product.thumbnail
+        product.thumbnail ?? ""
     }
     
     var productManufacturer: String {
-        product.manufacturer
+        product.manufacturer ?? ""
     }
     
     var productDescription: String {

@@ -11,7 +11,7 @@ import SwiftUI
 struct My_fridgeApp: App {
     var body: some Scene {
         WindowGroup {
-            MyFridgeView()
+            MyFridgeView(viewModel: MyFridgeViewModel())
         }
     }
 }
