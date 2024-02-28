@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct MyFridgeView: View {
-    @State var showAddProductView = false
-    @StateObject var viewModel: MyFridgeViewModel
+    @ObservedObject var viewModel: MyFridgeViewModel
+    @State private var showAddProductView = false
+
 
     var body: some View {
         NavigationStack {
@@ -58,7 +59,7 @@ struct MyFridgeView: View {
             }
             .accentColor(.yellow)
             .onAppear() {
-                viewModel.fetchAddedProducts()
+//                viewModel.fetchAddedProducts()
                 let tabBarAppearance = UITabBarAppearance()
                 tabBarAppearance.configureWithOpaqueBackground()
                 tabBarAppearance.backgroundColor = UIColor(named: "BackgroundColor")
@@ -67,8 +68,8 @@ struct MyFridgeView: View {
             }
         }
         .accentColor(Color("BackgroundColor"))
-//        .onAppear {
-//            viewModel.fetchAddedProducts()
+//        .task {
+//            myFridgeViewModel.fetchAddedProducts()
 //        }
     }
 }

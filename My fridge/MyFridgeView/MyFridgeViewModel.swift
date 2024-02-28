@@ -11,6 +11,10 @@ import Combine
 class MyFridgeViewModel: ObservableObject {
     @Published var rows: [ProductCard] = []
     var objectWillChange = PassthroughSubject<MyFridgeViewModel, Never>()
+    
+    init() {
+        rows = StorageManager.shared.fetchAddedProducts()
+    }
 
     
     func fetchAddedProducts() {
