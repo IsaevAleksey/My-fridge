@@ -9,6 +9,12 @@ import SwiftUI
 
 struct AddProductManualView: View {
     @StateObject var viewModel: AddProductManualViewModel
+    @EnvironmentObject var myFridgeViewModel: MyFridgeViewModel
+//    @Environment(\.presentationMode) var presentationMode
+
+//    @State private var date = Date()
+
+
     @Environment(\.dismiss) private var dismiss
 
 //    @State private var date = Date()
@@ -30,13 +36,16 @@ struct AddProductManualView: View {
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke())
             DatePicker(
                 "Срок годности до:",
-                selection: $viewModel.date,
+                selection: $viewModel.expirationDate,
                 displayedComponents: [.date]
             )
+            .environment(\.locale, Locale(identifier: "ru_RU"))
             .padding(.vertical)
             Spacer()
             Button {
-                viewModel.addProduct(title: viewModel.productName, manufacturer: viewModel.productManufactured)
+//                viewModel.addProduct(title: viewModel.productName, manufacturer: viewModel.productManufactured)
+                myFridgeViewModel.addProductManual(title: viewModel.productName, manufacturer: viewModel.productManufactured, expirationDate: viewModel.expirationDateString)
+                dismiss()
                 dismiss()
             } label: {
                 Text("Добавить")

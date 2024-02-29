@@ -45,7 +45,8 @@ struct CacheAsyncImage_Previews: PreviewProvider {
             phase in
             switch phase {
             case .empty:
-                ProgressView()
+                Image(systemName: "xmark.shield")
+//                ProgressView()
             case .success(let image):
                 image
             case .failure:

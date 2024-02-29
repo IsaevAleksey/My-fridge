@@ -82,5 +82,21 @@ final class NetworkManager {
         }
         return productCardData
     }
+    
+    func fetchProductCardForBarcode(barcode: String) async throws -> ProductCardData {
 
+        guard let url = URL(string: "https://rskrf.ru/rest/1/search/barcode?barcode=\(barcode)") else {
+            throw NetworkError.invalidURL
+        }
+        
+        guard let (data, _) = try? await URLSession.shared.data(from: url) else {
+            throw NetworkError.noData
+        }
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        guard let productCardData = try? decoder.decode(ProductCardData.self, from: data) else {
+            throw NetworkError.decodingError
+        }
+        return productCardData
+    }
 }

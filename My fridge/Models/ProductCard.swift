@@ -22,6 +22,7 @@ struct ProductCard: Codable {
 //    let productInfo: [ProductInfo]?
     let criteriaRatings: [CriteriaRating]?
     let thumbnail: String?
+    let expirationDate: String?
 
 //    enum CodingKeys: String, CodingKey {
 //        case id = "id"

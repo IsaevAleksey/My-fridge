@@ -42,6 +42,7 @@ struct AddProductView: View {
                     selection: $date,
                     displayedComponents: [.date]
                 )
+                .environment(\.locale, Locale(identifier: "ru_RU"))
                 .padding(.vertical)
                 NavigationLink {
                     AddProductManualView(viewModel: AddProductManualViewModel())

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MyFridgeView: View {
     @ObservedObject var viewModel: MyFridgeViewModel
+//    @StateObject var myFridgeViewModel = MyFridgeViewModel()
     @State private var showAddProductView = false
 
 
@@ -21,7 +22,7 @@ struct MyFridgeView: View {
                         .font(.largeTitle).bold()
                     List {
                         ForEach(viewModel.rows, id: \.title) { productCard in
-                            ProductRow(productTitle: productCard.title ?? "Данные отсутствуют", manufacturer: productCard.manufacturer ?? "Данные отсутствуют", productImageUrl: productCard.thumbnail ?? "Данные отсутствуют")
+                            ProductRow(productTitle: productCard.title ?? "Данные отсутствуют", manufacturer: productCard.manufacturer ?? "Данные отсутствуют", productImageUrl: productCard.thumbnail ?? "Данные отсутствуют", expirationDate: productCard.expirationDate ?? "")
                                 .frame(height: 60)
                         }
                         .onDelete { indexSet in
@@ -32,7 +33,7 @@ struct MyFridgeView: View {
 //                    .background(Color.yellow)
 //                    .scrollContentBackground(.hidden)
                     Button(action: {
-                        self.showAddProductView.toggle()
+                        showAddProductView.toggle()
                     }) {
                         Text("Добавить продукт")
                             .frame(width: 200,height: 35)
@@ -42,7 +43,7 @@ struct MyFridgeView: View {
                             .shadow(radius: 10)
                     }
                     .sheet(isPresented: $showAddProductView, content: {
-                        AddProductView()
+                        AddProductView().environmentObject(viewModel)
                     })
                     Spacer()
                 }

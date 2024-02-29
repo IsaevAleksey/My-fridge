@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct My_fridgeApp: App {
+    @StateObject var myFridgeViewModel = MyFridgeViewModel()
+
     var body: some Scene {
         WindowGroup {
-            MyFridgeView(viewModel: MyFridgeViewModel())
+            MyFridgeView(viewModel: myFridgeViewModel)
+
         }
     }
 }

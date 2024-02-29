@@ -20,9 +20,14 @@ struct ProductLogoImage: View {
                     .aspectRatio(contentMode: .fill)
                     .cornerRadius(10)
             case .empty:
-                ProgressView()
+                Image(systemName: "xmark.shield")
+                    .resizable()
                     .frame(width: 50, height: 50)
-                    .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black, lineWidth: 1))
+                    .cornerRadius(10)
+//                    .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black, lineWidth: 1))
+//                ProgressView()
+//                    .frame(width: 50, height: 50)
+//                    .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black, lineWidth: 1))
             case .failure:
                 Image(systemName: "xmark.shield")
                     .resizable()

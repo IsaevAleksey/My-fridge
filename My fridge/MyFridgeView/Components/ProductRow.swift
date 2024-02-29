@@ -11,6 +11,7 @@ struct ProductRow: View {
     var productTitle: String
     var manufacturer: String
     var productImageUrl: String
+    var expirationDate: String
     
     var body: some View {
         HStack {
@@ -21,7 +22,7 @@ struct ProductRow: View {
                 HStack {
                     Text("Срок годности")
                         .fontWeight(.thin)
-                    Text("10.11.2023")
+                    Text(expirationDate)
                 }
             }
             Spacer()
@@ -33,6 +34,6 @@ struct ProductRow: View {
 
 struct ProductRow_Previews: PreviewProvider {
     static var previews: some View {
-        ProductRow(productTitle: "Название продукта", manufacturer: "Производитель", productImageUrl: "")
+        ProductRow(productTitle: "Название продукта", manufacturer: "Производитель", productImageUrl: "", expirationDate: "")
     }
 }
