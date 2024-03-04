@@ -22,7 +22,7 @@ struct MyFridgeView: View {
                         .font(.largeTitle).bold()
                     List {
                         ForEach(viewModel.rows, id: \.title) { productCard in
-                            ProductRow(productTitle: productCard.title ?? "Данные отсутствуют", manufacturer: productCard.manufacturer ?? "Данные отсутствуют", productImageUrl: productCard.thumbnail ?? "Данные отсутствуют", expirationDate: productCard.expirationDate ?? "")
+                            ProductRow(productTitle: productCard.title ?? "Данные отсутствуют", manufacturer: productCard.manufacturer ?? "Данные отсутствуют", productImageUrl: productCard.thumbnail ?? "Данные отсутствуют", expirationDate: productCard.expirationDateString ?? "")
                                 .frame(height: 60)
                         }
                         .onDelete { indexSet in
@@ -32,6 +32,13 @@ struct MyFridgeView: View {
                     .opacity(viewModel.rows.isEmpty ? 0 : 1)
 //                    .background(Color.yellow)
 //                    .scrollContentBackground(.hidden)
+                    .onAppear {
+                        viewModel.rows.forEach { product in
+                            viewModel.scheduleNotificationForExpiryDate(for: product)
+                            viewModel.scheduleNotificationOneDayBeforeExpiryDate(for: product)
+                            viewModel.scheduleNotificationThreeDayBeforeExpiryDate(for: product)
+                        }
+                    }
                     Button(action: {
                         showAddProductView.toggle()
                     }) {

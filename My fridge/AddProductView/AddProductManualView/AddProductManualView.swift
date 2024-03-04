@@ -44,7 +44,7 @@ struct AddProductManualView: View {
             Spacer()
             Button {
 //                viewModel.addProduct(title: viewModel.productName, manufacturer: viewModel.productManufactured)
-                myFridgeViewModel.addProductManual(title: viewModel.productName, manufacturer: viewModel.productManufactured, expirationDate: viewModel.expirationDateString)
+                myFridgeViewModel.addProductManual(title: viewModel.productName, manufacturer: viewModel.productManufactured, expirationDate: viewModel.expirationDate, expirationDateString: viewModel.expirationDateString)
                 dismiss()
                 dismiss()
             } label: {
