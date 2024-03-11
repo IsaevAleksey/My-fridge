@@ -44,44 +44,6 @@ class ProductViewModel: ObservableObject {
         productCard?.criteriaRatings ?? []
     }
     
-//    var productRecommendations: [String:Double] {
-//        var recomendations: [String:Double] = [:]
-//        guard let productRecommendations = productCard?.recommendations else {return [:]}
-//        let criteria = productRecommendations.map {$0.criteriaRatings}
-//        
-//    }
-    
-//    var productInfoStats: [String:String] {
-//        var productInform: [String:String] = [:]
-//        guard let productInfo = productCard?.productInfo else {return [:]}
-//        let name: [String] = productInfo.map {$0.name ?? "Нет данных"}
-//        let info: [String] = productInfo.map {$0.info ?? "Нет данных"}
-//        
-//        for i in 0..<name.count {
-//            let key = name[i]
-//            productInform[key] = info[i]
-//        }
-//        return productInform
-//    }
-        
-        
-//        var productInfoName = [""]
-//        productInfoName = productCard?.productInfo.map {$0.name} ?? []
-//        return productInfoName
-//    }
-//
-//    var productInfoInfo: [String] {
-//        var productInfoInfo = [""]
-//        productInfoInfo = productCard?.productInfo.map {$0.info} ?? []
-//        return productInfoInfo
-//    }
-//    var productDescription: String {
-//        productCard?.description ?? "Описание отсутствует"
-//    }
-//    var categoryName: String {
-//        product.categoryName
-//    }
-    
     private let product: Product
 
     init (product: Product) {

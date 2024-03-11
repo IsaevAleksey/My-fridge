@@ -35,14 +35,6 @@ struct ProductView: View {
             ForEach(viewModel.criteriaRatings, id: \.self) {rating in
                 CriteriaRatingView(criteriaRating: rating)
             }
-//            Text(viewModel.productDescription).minimumScaleFactor(0.7)
-            
-//            ForEach(viewModel.productInfoStats.sorted(by: { $0.key < $1.key }), id: \.key) { (name, info) in
-//                ProductInfoView(name: name, info: info)
-//            }
-//            .padding(8.0)
-//            ProductInfoView(name: viewModel.productInfoName, info: viewModel.productInfoInfo)
-//            Text(viewModel.productCard?.description ?? "sfs")
             Spacer()
             Button {
                 guard let productCard = viewModel.productCard else {return}
@@ -55,13 +47,6 @@ struct ProductView: View {
                     .cornerRadius(20)
                     .shadow(radius: 10)
             }
-
-//            Text("Добавить")
-//                .frame(width: 200,height: 35)
-//                .background(Color("BackgroundColor"))
-//                .foregroundColor(Color.white)
-//                .cornerRadius(20)
-//                .shadow(radius: 10)
         }
         .padding(.top)
     }
@@ -69,6 +54,6 @@ struct ProductView: View {
 
 struct ProductView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductView(viewModel: ProductViewModel(product: Product(id: 10, title: "dfgdfgdgdfg", totalRating: 2.0, manufacturer: "dgdfgdfgd", thumbnail: "", hasQualityMark: true, categoryName: "", hasBadQualityMark: true)))
+        ProductView(viewModel: ProductViewModel(product: Product(id: 10, title: "dfgdfgdgdfg1", totalRating: 2.0, manufacturer: "dgdfgdfgd2", thumbnail: "", hasQualityMark: true, categoryName: "", hasBadQualityMark: true)))
     }
 }

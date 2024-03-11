@@ -27,6 +27,12 @@ class MyFridgeViewModel: ObservableObject {
         StorageManager.shared.addProduct(productCard: product)
     }
     
+    func addScanProduct (product: ProductCard) {
+        rows.append(product)
+        StorageManager.shared.addProduct(productCard: product)
+        
+    }
+    
 //    func fetchAddedProducts() {
 //        rows = StorageManager.shared.fetchAddedProducts()
 //            objectWillChange.send(self)

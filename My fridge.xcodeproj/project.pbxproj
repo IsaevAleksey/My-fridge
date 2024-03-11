@@ -141,6 +141,15 @@
 			path = AddProductManualView;
 			sourceTree = "<group>";
 		};
+		935A5AFD2B9F512400DE490F /* AddScanProductView */ = {
+			isa = PBXGroup;
+			children = (
+				9320461F2B87B000003BC5D2 /* AddScanProductView.swift */,
+				937EFB4A2B90F98C00CF31D2 /* AddScanProductViewModel.swift */,
+			);
+			path = AddScanProductView;
+			sourceTree = "<group>";
+		};
 		93834BEF2B1660210043AE84 /* MyFridgeView */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,8 +262,7 @@
 			children = (
 				931EEDF72B1654230006E4AD /* AddProductView.swift */,
 				9353025A2B8944EA00939A58 /* AddProductManualView */,
-				9320461F2B87B000003BC5D2 /* AddScanProductView.swift */,
-				937EFB4A2B90F98C00CF31D2 /* AddScanProductViewModel.swift */,
+				935A5AFD2B9F512400DE490F /* AddScanProductView */,
 				93B24FEA2B696E590034B245 /* Components */,
 			);
 			path = AddProductView;
