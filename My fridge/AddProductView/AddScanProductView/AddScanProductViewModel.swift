@@ -13,8 +13,7 @@ class AddScanProductViewModel: ObservableObject {
 
     var objectWillChange = PassthroughSubject<AddScanProductViewModel, Never>()
     var productCard: ProductCard?
-    
-    
+        
     var productId: Int {
         productCard?.id ?? 0
     }
@@ -47,11 +46,12 @@ class AddScanProductViewModel: ObservableObject {
         productCard?.criteriaRatings ?? []
     }
     
-//    private let product: Product
+//    private let barcode: String
 //
-//    init (product: Product) {
-//        self.product = product
+//    init (barcode: String) {
+//        self.barcode = barcode
 //    }
+    
     var expirationDateString: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"

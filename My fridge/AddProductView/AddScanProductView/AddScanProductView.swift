@@ -12,6 +12,7 @@ struct AddScanProductView: View {
     @EnvironmentObject var myFridgeViewModel: MyFridgeViewModel
     @Environment(\.dismiss) private var dismiss
 
+    let scannedBarcode: String
     
     var body: some View {
         VStack {
@@ -32,7 +33,7 @@ struct AddScanProductView: View {
             }
             .padding([.leading, .bottom, .trailing])
             .task {
-                await viewModel.fetchPoductCardForBarcode(barcode: "")
+                await viewModel.fetchPoductCardForBarcode(barcode: scannedBarcode)
             }
             ScrollView {
                 ProductInfoView(worth: viewModel.productWorth)
@@ -83,6 +84,6 @@ struct AddScanProductView: View {
 
 struct AddScanProductView_Previews: PreviewProvider {
     static var previews: some View {
-        AddScanProductView(viewModel: AddScanProductViewModel())
+        AddScanProductView(viewModel: AddScanProductViewModel(), scannedBarcode: "")
     }
 }

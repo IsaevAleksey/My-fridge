@@ -31,7 +31,8 @@ struct AddProductView: View {
                     ScannerView(scannedCode: self.$scannedCode)
                 }
                 Spacer()
-                ScannerView(scannedCode: self.$scannedCode)
+//                ScannerView(scannedCode: self.$scannedCode)
+                ScannerViewTwo()
                     .overlay(RoundedRectangle(cornerRadius: 20).stroke())
 
 //                    .border(Color("BackgroundColor"))
