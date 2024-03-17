@@ -110,19 +110,16 @@ struct ScannerViewTwo: View {
                 if let previewLayer = viewModel.previewLayer {
                     // Отображение слоя предварительного просмотра или другого UI для сканирования
                     PreviewView(previewLayer: previewLayer)
+                        .edgesIgnoringSafeArea(.all)
                 }
                 
-                if !isShowingNextView {
-                    Button("Stop Scanning") {
-                        viewModel.stopScanning()
-                        isShowingNextView = true
-                    }
-                } else {
+                if isShowingNextView {
                     // Переход на другое представление после сканирования
                     AddScanProductView(viewModel: AddScanProductViewModel(), scannedBarcode: viewModel.scannedBarcode ?? "")
                 }
+                
             } else {
-                Button("Grant Camera Access") {
+                Button("Разрешить доступ к камере") {
                     viewModel.checkCameraAuthorization()
                 }
 //                или                 Text("Camera access is not authorized.")
@@ -139,9 +136,11 @@ struct ScannerViewTwo: View {
             if let barcode = barcode {
 //                viewModel.sendBarcodeToServer(barcode)
                 // Мы обнаружили штрих-код, поэтому переходим на другое представление
+                viewModel.stopScanning()
                 isShowingNextView = true
             }
         }
+//        .accentColor(Color("BackgroundColor"))
     }
 }
 

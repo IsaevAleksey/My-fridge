@@ -12,39 +12,47 @@ struct AddProductView: View {
     @State private var date = Date()
     @State private var scannedCode: String?
     @State private var isShowingScanner = false
+    @State private var isShowingNextView = false
+
     
     var body: some View {
         NavigationStack {
+            if isShowingNextView {
+                AddScanProductView(viewModel: AddScanProductViewModel(), scannedBarcode: scannedCode ?? "")
+            }
             VStack {
                 Text("Добавить продукт")
                     .font(.largeTitle).bold()
                 VStack {
                     if let scannedCode = scannedCode {
                         Text("Scanned Code: \(scannedCode)")
-                    } else {
-                        Button("Scan Barcode") {
-                            self.isShowingScanner = true
-                        }
                     }
+//                    else {
+//                        Button("Scan Barcode") {
+//                            self.isShowingScanner = true
+//                        }
+//                    }
+//                }
+//                .sheet(isPresented: $isShowingScanner) {
+//                    ScannerView(scannedCode: self.$scannedCode, isShowingNextView: $isShowingNextView)
+                    
                 }
-                .sheet(isPresented: $isShowingScanner) {
-                    ScannerView(scannedCode: self.$scannedCode)
-                }
-                Spacer()
-//                ScannerView(scannedCode: self.$scannedCode)
-                ScannerViewTwo()
-                    .overlay(RoundedRectangle(cornerRadius: 20).stroke())
+//                Spacer()
+                ScannerView(scannedCode: self.$scannedCode, isShowingNextView: $isShowingNextView)
+//                        .overlay(RoundedRectangle(cornerRadius: 20).stroke())
+                        .padding()
+//                ScannerViewTwo()
 
 //                    .border(Color("BackgroundColor"))
 //                    .clipShape(RoundedRectangle(cornerRadius: 20))
 //                Text("Штрихкод")
-                DatePicker(
-                    "Срок годности до",
-                    selection: $date,
-                    displayedComponents: [.date]
-                )
-                .environment(\.locale, Locale(identifier: "ru_RU"))
-                .padding(.vertical)
+//                DatePicker(
+//                    "Срок годности до",
+//                    selection: $date,
+//                    displayedComponents: [.date]
+//                )
+//                .environment(\.locale, Locale(identifier: "ru_RU"))
+//                .padding(.vertical)
                 NavigationLink {
                     AddProductManualView(viewModel: AddProductManualViewModel())
                 } label: {
@@ -59,6 +67,7 @@ struct AddProductView: View {
 //            .navigationTitle("Добавить продукт")
             .padding()
         }
+        .accentColor(Color("BackgroundColor"))
     }
 }
 
