@@ -57,12 +57,12 @@ struct MyFridgeView: View {
                 .background(Color(.systemGroupedBackground))
                 .tabItem {
                     Image(systemName: "refrigerator")
-                    Text("Home")
+                    Text("Мои продукты")
                 }
                 CatalogView(viewModel: CatalogViewModel())
                 .tabItem {
                     Image(systemName: "list.bullet")
-                    Text("Catalog")
+                    Text("Каталог")
                 }
             }
             .accentColor(.yellow)
