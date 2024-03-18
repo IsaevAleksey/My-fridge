@@ -10,9 +10,9 @@ import AVFoundation
 
 struct ScannerView: View {
     @Binding var scannedCode: String?
+    @Binding var isShowingNextView: Bool
     @State private var isShowingAlert = false
     @State private var alertMessage = ""
-    @Binding var isShowingNextView: Bool
 
     
     

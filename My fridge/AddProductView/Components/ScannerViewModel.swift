@@ -5,6 +5,8 @@
 //  Created by Алексей Исаев on 16.03.2024.
 //
 
+// ТЕСТОВОЕ!!!
+
 import Foundation
 import SwiftUI
 import UIKit
@@ -36,15 +38,10 @@ class ScannerViewModel: NSObject, ObservableObject, AVCaptureVideoDataOutputSamp
     
     func stopScanning() {
         guard session.isRunning else { return }
-        turnLightOn(false)
+//        turnLightOn(false)
         DispatchQueue.global(qos: .userInitiated).async {
             self.session.stopRunning()
         }
-    }
-    
-    func turnLightOn(_ on: Bool) {
-        // Оставляем реализацию включения/выключения вспышки
-        
     }
     
     func checkCameraAuthorization() {
@@ -80,6 +77,7 @@ class ScannerViewModel: NSObject, ObservableObject, AVCaptureVideoDataOutputSamp
     
     private func setUpSession() throws {
         // Оставляем настройку сессии захвата
+        // А она нужна?
     }
     
     func captureOutput(_: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from _: AVCaptureConnection) {

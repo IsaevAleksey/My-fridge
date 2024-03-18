@@ -49,7 +49,7 @@ struct AddProductManualView: View {
                 dismiss()
             } label: {
                 Text("Добавить")
-                    .frame(width: 200,height: 35)
+                    .frame(width: 200,height: 40)
                     .background(viewModel.productName.isEmpty ? Color(.systemGray4) : Color("BackgroundColor"))
                     .foregroundColor(Color.white)
                     .cornerRadius(20)

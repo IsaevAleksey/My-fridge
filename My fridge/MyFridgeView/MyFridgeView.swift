@@ -17,7 +17,7 @@ struct MyFridgeView: View {
         NavigationStack {
             TabView {
                 VStack {
-                    Text("Мой холодильник")
+                    Text("Мои продукты")
                         .foregroundColor(Color("BackgroundColor"))
                         .font(.largeTitle).bold()
                     List {
@@ -43,7 +43,7 @@ struct MyFridgeView: View {
                         showAddProductView.toggle()
                     }) {
                         Text("Добавить продукт")
-                            .frame(width: 200,height: 35)
+                            .frame(width: 200,height: 40)
                             .background(Color("BackgroundColor"))
                             .foregroundColor(Color.white)
                             .cornerRadius(20)

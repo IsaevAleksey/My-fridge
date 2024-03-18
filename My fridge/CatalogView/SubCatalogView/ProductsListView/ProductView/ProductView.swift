@@ -12,30 +12,32 @@ struct ProductView: View {
     
     var body: some View {
         VStack {
-            HStack(alignment: .center) {
-                ProductLogoImage(productLogoUrl: viewModel.productImageUrl)
-                    .frame(width: 100, height: 100)
-                VStack {
-//                    Text(viewModel.productManufacturer)
-                    Text(viewModel.productTitle)
-                        .frame(height: 100)
-                        .minimumScaleFactor(0.7)
+            ScrollView {
+                HStack(alignment: .center) {
+                    ProductLogoImage(productLogoUrl: viewModel.productImageUrl)
+                        .frame(width: 100, height: 100)
+                    VStack {
+    //                    Text(viewModel.productManufacturer)
+                        Text(viewModel.productTitle)
+                            .frame(height: 100)
+                            .minimumScaleFactor(0.7)
+                    }
+    //                .frame(height: 100)
+                    Spacer()
+                    Text(String(format: "%.2f", viewModel.productRating))
+                    Image(systemName: "star.leadinghalf.filled")
+                        .foregroundColor(.yellow)
                 }
-//                .frame(height: 100)
+                .padding([.leading, .bottom, .trailing])
+                .task {
+                    await viewModel.fetchPoductCard(id: viewModel.productId)
+                }
+                ProductInfoView(worth: viewModel.productWorth)
+                ForEach(viewModel.criteriaRatings, id: \.self) {rating in
+                    CriteriaRatingView(criteriaRating: rating)
+                }
                 Spacer()
-                Text(String(format: "%.2f", viewModel.productRating))
-                Image(systemName: "star.leadinghalf.filled")
-                    .foregroundColor(.yellow)
             }
-            .padding([.leading, .bottom, .trailing])
-            .task {
-                await viewModel.fetchPoductCard(id: viewModel.productId)
-            }
-            ProductInfoView(worth: viewModel.productWorth)
-            ForEach(viewModel.criteriaRatings, id: \.self) {rating in
-                CriteriaRatingView(criteriaRating: rating)
-            }
-            Spacer()
             Button {
                 guard let productCard = viewModel.productCard else {return}
                 StorageManager.shared.addProduct(productCard: productCard)

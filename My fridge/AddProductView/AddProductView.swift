@@ -8,67 +8,103 @@
 import SwiftUI
 
 struct AddProductView: View {
-    @State var showAddProductManualView = false
+    @State private var showAddProductManualView = false
     @State private var date = Date()
     @State private var scannedCode: String?
-    @State private var isShowingScanner = false
-    @State private var isShowingNextView = false
-
+    @State private var isShowingAddScanProductView = false
     
     var body: some View {
-        NavigationStack {
-            if isShowingNextView {
-                AddScanProductView(viewModel: AddScanProductViewModel(), scannedBarcode: scannedCode ?? "")
-            }
-            VStack {
+        NavigationView {
+            VStack(alignment: .center) {
                 Text("Добавить продукт")
-                    .font(.largeTitle).bold()
-                VStack {
-                    if let scannedCode = scannedCode {
-                        Text("Scanned Code: \(scannedCode)")
-                    }
-//                    else {
-//                        Button("Scan Barcode") {
-//                            self.isShowingScanner = true
-//                        }
-//                    }
-//                }
-//                .sheet(isPresented: $isShowingScanner) {
-//                    ScannerView(scannedCode: self.$scannedCode, isShowingNextView: $isShowingNextView)
-                    
+                    .font(.largeTitle).bold().padding(.bottom)
+                if let scannedCode = scannedCode {
+                    Text("Штрихкод отсканирован: \(scannedCode)")
+                        .multilineTextAlignment(.center)
+                } else {
+                    Text("Отсканируйте штрихкод")
                 }
-//                Spacer()
-                ScannerView(scannedCode: self.$scannedCode, isShowingNextView: $isShowingNextView)
-//                        .overlay(RoundedRectangle(cornerRadius: 20).stroke())
-                        .padding()
-//                ScannerViewTwo()
+                Spacer()
+                ScannerView(scannedCode: $scannedCode, isShowingNextView: $isShowingAddScanProductView)
+                    .frame(maxWidth: .infinity, maxHeight: 400)
+                    .overlay(RoundedRectangle(cornerRadius: 20).stroke())
+                Spacer()
+                HStack {
+                    NavigationLink {
+                        AddProductManualView(viewModel: AddProductManualViewModel())
+                    } label: {
+                        Text("Добавить вручную")
+                            .frame(width: 160,height: 40)
+                            .background(Color("BackgroundColor"))
+                            .foregroundColor(Color.white)
+                            .cornerRadius(20)
+                            .shadow(radius: 10)
+                    }
+                    NavigationLink {
+                        AddScanProductView(viewModel: AddScanProductViewModel(), scannedBarcode: scannedCode ?? "")
+                    } label: {
+                        Text("Далее")
+                            .frame(width: 160,height: 40)
+                            .background(!isShowingAddScanProductView ? Color(.systemGray4) : Color("BackgroundColor"))                            .foregroundColor(Color.white)
+                            .cornerRadius(20)
+                            .shadow(radius: 10)
+                    }
+                    .disabled(!isShowingAddScanProductView)
 
-//                    .border(Color("BackgroundColor"))
-//                    .clipShape(RoundedRectangle(cornerRadius: 20))
-//                Text("Штрихкод")
-//                DatePicker(
-//                    "Срок годности до",
-//                    selection: $date,
-//                    displayedComponents: [.date]
-//                )
-//                .environment(\.locale, Locale(identifier: "ru_RU"))
-//                .padding(.vertical)
-                NavigationLink {
-                    AddProductManualView(viewModel: AddProductManualViewModel())
-                } label: {
-                    Text("Добавить вручную")
-                        .frame(width: 200,height: 35)
-                        .background(Color("BackgroundColor"))
-                        .foregroundColor(Color.white)
-                        .cornerRadius(20)
-                        .shadow(radius: 10)
                 }
             }
-//            .navigationTitle("Добавить продукт")
-            .padding()
         }
-        .accentColor(Color("BackgroundColor"))
     }
+    
+    
+//    var body: some View {
+//        NavigationStack {
+//            if isShowingAddScanProductView {
+//                AddScanProductView(viewModel: AddScanProductViewModel(), scannedBarcode: scannedCode ?? "")
+//            }
+//            VStack {
+//                Text("Добавить продукт")
+//                    .font(.largeTitle).bold()
+//                VStack {
+//                    if let scannedCode = scannedCode {
+//                        Text("Scanned Code: \(scannedCode)")
+//                    }
+////                    else {
+////                        Button("Scan Barcode") {
+////                            self.isShowingScanner = true
+////                        }
+////                    }
+////                }
+////                .sheet(isPresented: $isShowingScanner) {
+////                    ScannerView(scannedCode: self.$scannedCode, isShowingNextView: $isShowingNextView)
+//
+//                }
+//                Spacer()
+//                ScannerView(scannedCode: self.$scannedCode, isShowingNextView: $isShowingAddScanProductView)
+//                    .frame(maxWidth: .infinity, maxHeight: 400)
+//
+//                        .overlay(RoundedRectangle(cornerRadius: 20).stroke())
+////                ScannerViewTwo()
+//
+////                    .border(Color("BackgroundColor"))
+////                    .clipShape(RoundedRectangle(cornerRadius: 20))
+//                Spacer()
+//                NavigationLink {
+//                    AddProductManualView(viewModel: AddProductManualViewModel())
+//                } label: {
+//                    Text("Добавить вручную")
+//                        .frame(width: 200,height: 35)
+//                        .background(Color("BackgroundColor"))
+//                        .foregroundColor(Color.white)
+//                        .cornerRadius(20)
+//                        .shadow(radius: 10)
+//                }
+//            }
+////            .navigationTitle("Добавить продукт")
+//            .padding()
+//        }
+//        .accentColor(Color("BackgroundColor"))
+//    }
 }
 
 struct AddProduct_Previews: PreviewProvider {
