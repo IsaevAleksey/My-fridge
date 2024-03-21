@@ -22,11 +22,12 @@ struct AddProductView: View {
                     Text("Штрихкод отсканирован: \(scannedCode)")
                         .multilineTextAlignment(.center)
                 } else {
-                    Text("Отсканируйте штрихкод")
+                    Text("Отсканируйте штрихкод для поиска в базе Роскачества")
+                        .multilineTextAlignment(.center)
                 }
                 Spacer()
                 ScannerView(scannedCode: $scannedCode, isShowingNextView: $isShowingAddScanProductView)
-                    .frame(maxWidth: .infinity, maxHeight: 400)
+                    .frame(maxWidth: 350, maxHeight: 400)
                     .overlay(RoundedRectangle(cornerRadius: 20).stroke())
                 Spacer()
                 HStack {
@@ -34,7 +35,7 @@ struct AddProductView: View {
                         AddProductManualView(viewModel: AddProductManualViewModel())
                     } label: {
                         Text("Добавить вручную")
-                            .frame(width: 160,height: 40)
+                            .frame(width: 170,height: 40)
                             .background(Color("BackgroundColor"))
                             .foregroundColor(Color.white)
                             .cornerRadius(20)
@@ -44,16 +45,17 @@ struct AddProductView: View {
                         AddScanProductView(viewModel: AddScanProductViewModel(), scannedBarcode: scannedCode ?? "")
                     } label: {
                         Text("Далее")
-                            .frame(width: 160,height: 40)
+                            .frame(width: 170,height: 40)
                             .background(!isShowingAddScanProductView ? Color(.systemGray4) : Color("BackgroundColor"))                            .foregroundColor(Color.white)
                             .cornerRadius(20)
                             .shadow(radius: 10)
                     }
                     .disabled(!isShowingAddScanProductView)
-
                 }
             }
         }
+        .accentColor(Color("BackgroundColor"))
+        .preferredColorScheme(.light)
     }
     
     

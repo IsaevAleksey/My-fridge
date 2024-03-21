@@ -76,6 +76,8 @@ struct MyFridgeView: View {
             }
         }
         .accentColor(Color("BackgroundColor"))
+        .preferredColorScheme(.light)
+
 //        .task {
 //            myFridgeViewModel.fetchAddedProducts()
 //        }

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ProductsListView: View {
     @StateObject var viewModel: ProductsListViewModel
-
     
     var body: some View {
             List(viewModel.rows, id: \.productId) { productViewModel in

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ProductView: View {
     @StateObject var viewModel: ProductViewModel
+    @EnvironmentObject var myFridgeViewModel: MyFridgeViewModel
+
     
     var body: some View {
         VStack {
@@ -38,17 +40,18 @@ struct ProductView: View {
                 }
                 Spacer()
             }
-            Button {
-                guard let productCard = viewModel.productCard else {return}
-                StorageManager.shared.addProduct(productCard: productCard)
-            } label: {
-                Text("Добавить")
-                    .frame(width: 200,height: 35)
-                    .background(Color("BackgroundColor"))
-                    .foregroundColor(Color.white)
-                    .cornerRadius(20)
-                    .shadow(radius: 10)
-            }
+//            Button {
+//                guard let productCard = viewModel.productCard else {return}
+//                //проверить
+//                StorageManager.shared.addProduct(productCard: productCard)
+//            } label: {
+//                Text("Добавить")
+//                    .frame(width: 200,height: 35)
+//                    .background(Color("BackgroundColor"))
+//                    .foregroundColor(Color.white)
+//                    .cornerRadius(20)
+//                    .shadow(radius: 10)
+//            }
         }
         .padding(.top)
     }
