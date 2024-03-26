@@ -10,7 +10,7 @@ import AVFoundation
 
 struct ScannerView: View {
     @Binding var scannedCode: String?
-    @Binding var isShowingNextView: Bool
+    @Binding var isShowingAddScanProductView: Bool
     @State private var isShowingAlert = false
     @State private var alertMessage = ""
 
@@ -27,7 +27,7 @@ struct ScannerView: View {
             if let code = notification.object as? String {
                 self.scannedCode = code
                 // Здесь можно добавить логику для отправки на сервер
-                isShowingNextView = true
+                isShowingAddScanProductView = true
             } else {
                 self.alertMessage = "Неправильный формат штрихкода"
                 self.isShowingAlert = true
@@ -39,6 +39,6 @@ struct ScannerView: View {
 struct ScannerView_Previews: PreviewProvider {
 
     static var previews: some View {
-        ScannerView(scannedCode: .constant("String"), isShowingNextView: .constant(true))
+        ScannerView(scannedCode: .constant("String"), isShowingAddScanProductView: .constant(true))
     }
 }

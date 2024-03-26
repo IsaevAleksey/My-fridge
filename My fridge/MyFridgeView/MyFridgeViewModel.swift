@@ -14,6 +14,7 @@ class MyFridgeViewModel: ObservableObject {
     
     init() {
         rows = StorageManager.shared.fetchAddedProducts()
+        print("запрос карточки из майфриджвьюмодел")
     }
     
     //    func addProduct(product: ProductCard) {

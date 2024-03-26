@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProductView: View {
     @StateObject var viewModel: ProductViewModel
-    @EnvironmentObject var myFridgeViewModel: MyFridgeViewModel
+//    @EnvironmentObject var myFridgeViewModel: MyFridgeViewModel
 
     
     var body: some View {

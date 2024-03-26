@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AddProductView: View {
-    @State private var showAddProductManualView = false
+//    @State private var showAddProductManualView = false
     @State private var date = Date()
     @State private var scannedCode: String?
     @State private var isShowingAddScanProductView = false
@@ -26,7 +26,7 @@ struct AddProductView: View {
                         .multilineTextAlignment(.center)
                 }
                 Spacer()
-                ScannerView(scannedCode: $scannedCode, isShowingNextView: $isShowingAddScanProductView)
+                ScannerView(scannedCode: $scannedCode, isShowingAddScanProductView: $isShowingAddScanProductView)
                     .frame(maxWidth: 350, maxHeight: 400)
                     .overlay(RoundedRectangle(cornerRadius: 20).stroke())
                 Spacer()
