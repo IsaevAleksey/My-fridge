@@ -10,17 +10,9 @@ import SwiftUI
 struct AddProductManualView: View {
     @StateObject var viewModel: AddProductManualViewModel
     @EnvironmentObject var myFridgeViewModel: MyFridgeViewModel
-//    @Environment(\.presentationMode) var presentationMode
-
-//    @State private var date = Date()
-
 
     @Environment(\.dismiss) private var dismiss
 
-//    @State private var date = Date()
-//    @State private var productName: String = ""
-//    @State private var productManufactured: String = ""
-    
     var body: some View {
         VStack {
             Text("Название продукта")
@@ -44,7 +36,12 @@ struct AddProductManualView: View {
             Spacer()
             Button {
 //                viewModel.addProduct(title: viewModel.productName, manufacturer: viewModel.productManufactured)
-                myFridgeViewModel.addProductManual(title: viewModel.productName, manufacturer: viewModel.productManufactured, expirationDate: viewModel.expirationDate, expirationDateString: viewModel.expirationDateString)
+                myFridgeViewModel.addProductManual(
+                    title: viewModel.productName,
+                    manufacturer: viewModel.productManufactured,
+                    expirationDate: viewModel.expirationDate,
+                    expirationDateString: viewModel.expirationDateString
+                )
                 dismiss()
             } label: {
                 Text("Добавить")

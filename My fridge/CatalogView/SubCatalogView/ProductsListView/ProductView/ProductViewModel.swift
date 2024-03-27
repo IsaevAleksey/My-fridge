@@ -8,7 +8,6 @@ import Combine
 import Foundation
 
 class ProductViewModel: ObservableObject {
-//    @Published var rows: [ProductViewModel] = []
     var objectWillChange = PassthroughSubject<ProductViewModel, Never>()
     var productCard: ProductCard?
     
@@ -49,7 +48,6 @@ class ProductViewModel: ObservableObject {
     init (product: Product) {
         self.product = product
     }
-    
     
     @MainActor func fetchPoductCard(id: Int) async {
         do {

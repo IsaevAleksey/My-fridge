@@ -274,8 +274,8 @@
 			isa = PBXGroup;
 			children = (
 				93B24FE72B69636A0034B245 /* ScannerView.swift */,
-				9330EF1E2BA5C8EF00E4B99E /* ScannerViewModel.swift */,
 				93B24FEB2B696E6D0034B245 /* Scanner.swift */,
+				9330EF1E2BA5C8EF00E4B99E /* ScannerViewModel.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";

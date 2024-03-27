@@ -19,7 +19,7 @@ struct ProductListRow: View {
                 .frame(width: 50, height: 50)
             VStack {
                 Text(title)
-                Text(productManufacturer) // не переносить больше двух строк
+                Text(productManufacturer) // не переносить больше двух строк?
             }
             Spacer()
             HStack {

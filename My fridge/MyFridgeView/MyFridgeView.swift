@@ -9,9 +9,7 @@ import SwiftUI
 
 struct MyFridgeView: View {
     @ObservedObject var viewModel: MyFridgeViewModel
-//    @StateObject var myFridgeViewModel = MyFridgeViewModel()
     @State private var showAddProductView = false
-
 
     var body: some View {
         NavigationStack {
@@ -30,8 +28,6 @@ struct MyFridgeView: View {
                         }
                     }
                     .opacity(viewModel.rows.isEmpty ? 0 : 1)
-//                    .background(Color.yellow)
-//                    .scrollContentBackground(.hidden)
                     .onAppear {
                         viewModel.rows.forEach { product in
                             viewModel.scheduleNotificationForExpiryDate(for: product)
@@ -67,7 +63,6 @@ struct MyFridgeView: View {
             }
             .accentColor(.yellow)
             .onAppear() {
-//                viewModel.fetchAddedProducts()
                 let tabBarAppearance = UITabBarAppearance()
                 tabBarAppearance.configureWithOpaqueBackground()
                 tabBarAppearance.backgroundColor = UIColor(named: "BackgroundColor")
@@ -76,11 +71,6 @@ struct MyFridgeView: View {
             }
         }
         .accentColor(Color("TextColor"))
-//        .preferredColorScheme(.light)
-
-//        .task {
-//            myFridgeViewModel.fetchAddedProducts()
-//        }
     }
 }
 

@@ -18,8 +18,6 @@ struct CatalogView: View {
     var body: some View {
         NavigationView {
             VStack {
-//                Text("Каталог продуктов")
-//                    .font(.largeTitle).bold()
                 ScrollView {
                     LazyVGrid(columns: column) {
                         ForEach(viewModel.rows, id: \.categoryId) {subCatalogViewModel in

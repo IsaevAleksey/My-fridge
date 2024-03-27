@@ -46,12 +46,6 @@ class AddScanProductViewModel: ObservableObject {
         productCard?.criteriaRatings ?? []
     }
     
-//    private let barcode: String
-//
-//    init (barcode: String) {
-//        self.barcode = barcode
-//    }
-    
     var expirationDateString: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"

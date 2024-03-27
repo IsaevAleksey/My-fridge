@@ -19,24 +19,10 @@ struct ProductCard: Codable {
     let description: String?
     let categoryName, manufacturer: String?
     let worth: [String]?
-//    let productInfo: [ProductInfo]?
     let criteriaRatings: [CriteriaRating]?
     let thumbnail: String?
     let expirationDate: Date?
     let expirationDateString: String?
-
-//    enum CodingKeys: String, CodingKey {
-//        case id = "id"
-//        case title = "title"
-//        case totalRating = "total_rating"
-//        case description = "description"
-//        case categoryName = "category_name"
-//        case manufacturer = "manufacturer"
-//        case worth = "worth"
-////        case productInfo = "product_info"
-//        case criteriaRatings = "criteria_ratings"
-//        case thumbnail = "thumbnail"
-//    }
 }
 
 // MARK: - CriteriaRating
@@ -45,8 +31,4 @@ struct CriteriaRating: Codable, Hashable {
     let value: Double?
 }
 
-//// MARK: - ProductInfo
-//struct ProductInfo: Codable {
-//    let name, info: String?
-//}
 

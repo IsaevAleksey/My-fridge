@@ -13,8 +13,6 @@ struct ScannerView: View {
     @Binding var isShowingAddScanProductView: Bool
     @State private var isShowingAlert = false
     @State private var alertMessage = ""
-
-    
     
     var body: some View {
         VStack {
@@ -26,7 +24,6 @@ struct ScannerView: View {
         .onReceive(NotificationCenter.default.publisher(for: .scannedCodeReceived)) { notification in
             if let code = notification.object as? String {
                 self.scannedCode = code
-                // Здесь можно добавить логику для отправки на сервер
                 isShowingAddScanProductView = true
             } else {
                 self.alertMessage = "Неправильный формат штрихкода"

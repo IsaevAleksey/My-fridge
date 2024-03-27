@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AddProductView: View {
-//    @State private var showAddProductManualView = false
     @State private var date = Date()
     @State private var scannedCode: String?
     @State private var isShowingAddScanProductView = false
@@ -47,7 +46,8 @@ struct AddProductView: View {
                     } label: {
                         Text("Далее")
                             .frame(width: 170,height: 40)
-                            .background(!isShowingAddScanProductView ? Color(.systemGray4) : Color("BackgroundColor"))                            .foregroundColor(Color.white)
+                            .background(!isShowingAddScanProductView ? Color(.systemGray4) : Color("BackgroundColor"))
+                            .foregroundColor(Color.white)
                             .cornerRadius(20)
                             .shadow(radius: 10)
                     }
@@ -56,58 +56,7 @@ struct AddProductView: View {
             }
         }
         .accentColor(Color("TextColor"))
-//        .preferredColorScheme(.light)
     }
-    
-    
-//    var body: some View {
-//        NavigationStack {
-//            if isShowingAddScanProductView {
-//                AddScanProductView(viewModel: AddScanProductViewModel(), scannedBarcode: scannedCode ?? "")
-//            }
-//            VStack {
-//                Text("Добавить продукт")
-//                    .font(.largeTitle).bold()
-//                VStack {
-//                    if let scannedCode = scannedCode {
-//                        Text("Scanned Code: \(scannedCode)")
-//                    }
-////                    else {
-////                        Button("Scan Barcode") {
-////                            self.isShowingScanner = true
-////                        }
-////                    }
-////                }
-////                .sheet(isPresented: $isShowingScanner) {
-////                    ScannerView(scannedCode: self.$scannedCode, isShowingNextView: $isShowingNextView)
-//
-//                }
-//                Spacer()
-//                ScannerView(scannedCode: self.$scannedCode, isShowingNextView: $isShowingAddScanProductView)
-//                    .frame(maxWidth: .infinity, maxHeight: 400)
-//
-//                        .overlay(RoundedRectangle(cornerRadius: 20).stroke())
-////                ScannerViewTwo()
-//
-////                    .border(Color("BackgroundColor"))
-////                    .clipShape(RoundedRectangle(cornerRadius: 20))
-//                Spacer()
-//                NavigationLink {
-//                    AddProductManualView(viewModel: AddProductManualViewModel())
-//                } label: {
-//                    Text("Добавить вручную")
-//                        .frame(width: 200,height: 35)
-//                        .background(Color("BackgroundColor"))
-//                        .foregroundColor(Color.white)
-//                        .cornerRadius(20)
-//                        .shadow(radius: 10)
-//                }
-//            }
-////            .navigationTitle("Добавить продукт")
-//            .padding()
-//        }
-//        .accentColor(Color("BackgroundColor"))
-//    }
 }
 
 struct AddProduct_Previews: PreviewProvider {

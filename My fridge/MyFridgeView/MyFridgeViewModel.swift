@@ -6,24 +6,27 @@
 //
 
 import SwiftUI
-//import Combine
 
 class MyFridgeViewModel: ObservableObject {
     @Published var rows: [ProductCard] = []
-    //    var objectWillChange = PassthroughSubject<MyFridgeViewModel, Never>()
     
     init() {
         rows = StorageManager.shared.fetchAddedProducts()
         print("запрос карточки из майфриджвьюмодел")
     }
     
-    //    func addProduct(product: ProductCard) {
-    //        rows.append(product)
-    //        StorageManager.shared.addProduct(productCard: product)
-    //    }
-    
     func addProductManual (title: String, manufacturer: String, expirationDate: Date, expirationDateString: String) {
-        let product = ProductCard(id: 0, title: title, totalRating: 0, description: "", categoryName: "", manufacturer: manufacturer, worth: [""], criteriaRatings: nil, thumbnail: "", expirationDate: expirationDate, expirationDateString: expirationDateString)
+        let product = ProductCard(
+            id: 0, title: title,
+            totalRating: 0,
+            description: "",
+            categoryName: "",
+            manufacturer: manufacturer,
+            worth: [""],
+            criteriaRatings: nil,
+            thumbnail: "",
+            expirationDate: expirationDate,
+            expirationDateString: expirationDateString)
         rows.append(product)
         StorageManager.shared.addProduct(productCard: product)
     }
@@ -33,11 +36,6 @@ class MyFridgeViewModel: ObservableObject {
         StorageManager.shared.addProduct(productCard: product)
         
     }
-    
-//    func fetchAddedProducts() {
-//        rows = StorageManager.shared.fetchAddedProducts()
-//            objectWillChange.send(self)
-//    }
     
     // Функция для установки уведомления о сроке годности продукта
     func scheduleNotificationForExpiryDate(for product: ProductCard) {

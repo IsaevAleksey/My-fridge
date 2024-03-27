@@ -16,7 +16,6 @@ struct CatalogLogoImage: View {
             case .success(let image):
                 image
                     .resizable()
-//                    .frame(width: 150, height: 150)
                     .cornerRadius(10)
             case .empty:
                 ProgressView()
@@ -31,7 +30,6 @@ struct CatalogLogoImage: View {
             @unknown default:
                 Image(systemName: "xmark.shield")
                     .frame(width: 120, height: 120)
-//                    .shadow(radius: 10)
                     .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black, lineWidth: 1))
             }
         }

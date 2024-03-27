@@ -30,12 +30,8 @@ struct CriteriaRatingView: View {
     var body: some View {
         HStack {
             Text(criteriaRating.title ?? "Unknown")
-//                .font(.subheadline)
             Spacer()
             Text(String(format: "%.2f", criteriaRating.value ?? 0))
-
-//            Text("\(criteriaRating.value ?? 0)")
-//                .font(.subheadline)
         }
         .padding(.horizontal)
     }

@@ -25,7 +25,6 @@ struct SubCatalogView: View {
                 }
             }
             .navigationTitle(viewModel.categoryTitle)
-//            .padding()
         }
         .padding()
         .task {
