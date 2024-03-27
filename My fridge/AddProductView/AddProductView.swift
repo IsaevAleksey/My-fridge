@@ -12,6 +12,7 @@ struct AddProductView: View {
     @State private var date = Date()
     @State private var scannedCode: String?
     @State private var isShowingAddScanProductView = false
+    @EnvironmentObject var viewModel: MyFridgeViewModel
     
     var body: some View {
         NavigationView {
@@ -19,7 +20,7 @@ struct AddProductView: View {
                 Text("Добавить продукт")
                     .font(.largeTitle).bold().padding(.bottom)
                 if let scannedCode = scannedCode {
-                    Text("Штрихкод отсканирован: \(scannedCode)")
+                    Text("Штрихкод отсканирован: \(scannedCode). Нажмите Далее")
                         .multilineTextAlignment(.center)
                 } else {
                     Text("Отсканируйте штрихкод для поиска в базе Роскачества")
@@ -54,8 +55,8 @@ struct AddProductView: View {
                 }
             }
         }
-        .accentColor(Color("BackgroundColor"))
-        .preferredColorScheme(.light)
+        .accentColor(Color("TextColor"))
+//        .preferredColorScheme(.light)
     }
     
     

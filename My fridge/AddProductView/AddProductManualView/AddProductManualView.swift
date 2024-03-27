@@ -46,7 +46,6 @@ struct AddProductManualView: View {
 //                viewModel.addProduct(title: viewModel.productName, manufacturer: viewModel.productManufactured)
                 myFridgeViewModel.addProductManual(title: viewModel.productName, manufacturer: viewModel.productManufactured, expirationDate: viewModel.expirationDate, expirationDateString: viewModel.expirationDateString)
                 dismiss()
-                dismiss()
             } label: {
                 Text("Добавить")
                     .frame(width: 200,height: 40)

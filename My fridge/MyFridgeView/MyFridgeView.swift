@@ -18,7 +18,7 @@ struct MyFridgeView: View {
             TabView {
                 VStack {
                     Text("Мои продукты")
-                        .foregroundColor(Color("BackgroundColor"))
+                        .foregroundColor(Color("TextColor"))
                         .font(.largeTitle).bold()
                     List {
                         ForEach(viewModel.rows, id: \.title) { productCard in
@@ -75,8 +75,8 @@ struct MyFridgeView: View {
                 UITabBar.appearance().standardAppearance = tabBarAppearance
             }
         }
-        .accentColor(Color("BackgroundColor"))
-        .preferredColorScheme(.light)
+        .accentColor(Color("TextColor"))
+//        .preferredColorScheme(.light)
 
 //        .task {
 //            myFridgeViewModel.fetchAddedProducts()
