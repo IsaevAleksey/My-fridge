@@ -20,6 +20,7 @@ struct ProductCard: Codable {
     let categoryName, manufacturer: String?
     let worth: [String]?
     let criteriaRatings: [CriteriaRating]?
+//    let productInfo: [ProductInfo]?
     let thumbnail: String?
     let expirationDate: Date?
     let expirationDateString: String?
@@ -30,5 +31,11 @@ struct CriteriaRating: Codable, Hashable {
     let title: String?
     let value: Double?
 }
+
+// MARK: - ProductInfo
+//struct ProductInfo: Codable, Hashable {
+//    let name: String?
+//    let info: String?
+//}
 
 

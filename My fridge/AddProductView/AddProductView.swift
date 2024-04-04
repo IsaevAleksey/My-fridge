@@ -17,7 +17,7 @@ struct AddProductView: View {
         NavigationView {
             VStack(alignment: .center) {
                 Text("Добавить продукт")
-                    .font(.largeTitle).bold().padding(.bottom)
+                    .font(.largeTitle).bold().padding(.vertical)
                 if let scannedCode = scannedCode {
                     Text("Штрихкод отсканирован: \(scannedCode). Нажмите Далее")
                         .multilineTextAlignment(.center)
@@ -26,9 +26,13 @@ struct AddProductView: View {
                         .multilineTextAlignment(.center)
                 }
                 Spacer()
-                ScannerView(scannedCode: $scannedCode, isShowingAddScanProductView: $isShowingAddScanProductView)
-                    .frame(maxWidth: 350, maxHeight: 400)
-                    .overlay(RoundedRectangle(cornerRadius: 20).stroke())
+                VStack {
+                    ScannerView(scannedCode: $scannedCode, isShowingAddScanProductView: $isShowingAddScanProductView)
+    //                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .frame(maxWidth: 350, maxHeight: 400)
+                        .overlay(RoundedRectangle(cornerRadius: 20).stroke())
+                }
                 Spacer()
                 HStack {
                     NavigationLink {
