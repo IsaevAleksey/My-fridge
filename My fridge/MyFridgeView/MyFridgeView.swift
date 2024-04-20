@@ -35,6 +35,15 @@ struct MyFridgeView: View {
                             viewModel.scheduleNotificationThreeDayBeforeExpiryDate(for: product)
                         }
                     }
+//                    .onDisappear {
+//                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+//                        viewModel.rows.forEach { product in
+//                            viewModel.scheduleNotificationForExpiryDate(for: product)
+//                            viewModel.scheduleNotificationOneDayBeforeExpiryDate(for: product)
+//                            viewModel.scheduleNotificationThreeDayBeforeExpiryDate(for: product)
+//                        }
+//                        print("disappear")
+//                    }
                     Button(action: {
                         showAddProductView.toggle()
                     }) {

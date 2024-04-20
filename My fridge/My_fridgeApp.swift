@@ -18,6 +18,7 @@ struct My_fridgeApp: App {
                 print(error)
             }
         }
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     }
     
     var body: some Scene {

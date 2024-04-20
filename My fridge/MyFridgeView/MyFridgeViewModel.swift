@@ -15,6 +15,15 @@ class MyFridgeViewModel: ObservableObject {
         print("запрос карточки из майфриджвьюмодел")
     }
     
+    deinit {
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        rows.forEach { product in
+            scheduleNotificationForExpiryDate(for: product)
+            scheduleNotificationOneDayBeforeExpiryDate(for: product)
+            scheduleNotificationThreeDayBeforeExpiryDate(for: product)
+        }
+    }
+    
     func addProductManual (title: String, manufacturer: String, expirationDate: Date, expirationDateString: String) {
         let product = ProductCard(
             id: 0, title: title,
@@ -42,7 +51,7 @@ class MyFridgeViewModel: ObservableObject {
         // Создание контента уведомления
         let content = UNMutableNotificationContent()
         content.title = "\(product.title ?? "")"
-        content.body = "Срок годности продукта до \(product.expirationDateString ?? "")"
+        content.body = "Срок годности истекает \(product.expirationDateString ?? "")"
         
         // Создание триггера уведомления на основе даты истечения срока годности
         let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: product.expirationDate ?? Date())
@@ -52,8 +61,8 @@ class MyFridgeViewModel: ObservableObject {
         triggerDateComponents.year = triggerDate.year
         triggerDateComponents.month = triggerDate.month
         triggerDateComponents.day = triggerDate.day
-        triggerDateComponents.hour = 19
-        triggerDateComponents.minute = 00
+        triggerDateComponents.hour = 09
+        triggerDateComponents.minute = 10
         
         // Триггер
         let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDateComponents, repeats: false)
@@ -76,7 +85,7 @@ class MyFridgeViewModel: ObservableObject {
         // Создание контента уведомления
         let content = UNMutableNotificationContent()
         content.title = "\(product.title ?? "")"
-        content.body = "Срок годности продукта истекает \(product.expirationDateString ?? "")"
+        content.body = "Срок годности истекает \(product.expirationDateString ?? "")"
         
         // Создание триггера уведомления на основе даты истечения срока годности
         let dateOneDayBeforeExpiryDate = Calendar.current.date(byAdding: .day, value: -1, to: product.expirationDate ?? Date())
@@ -87,8 +96,8 @@ class MyFridgeViewModel: ObservableObject {
         triggerDateComponents.year = triggerDate.year
         triggerDateComponents.month = triggerDate.month
         triggerDateComponents.day = triggerDate.day
-        triggerDateComponents.hour = 19
-        triggerDateComponents.minute = 00
+        triggerDateComponents.hour = 09
+        triggerDateComponents.minute = 10
         
         // Триггер
         let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDateComponents, repeats: false)
@@ -119,7 +128,7 @@ class MyFridgeViewModel: ObservableObject {
         // Создание контента уведомления
         let content = UNMutableNotificationContent()
         content.title = "\(product.title ?? "")"
-        content.body = "Срок годности продукта истекает \(product.expirationDateString ?? "")"
+        content.body = "Срок годности истекает \(product.expirationDateString ?? "")"
         
         // Создание триггера уведомления на основе даты истечения срока годности
         let dateThreeDayBeforeExpiryDate = Calendar.current.date(byAdding: .day, value: -3, to: product.expirationDate ?? Date())
@@ -130,8 +139,8 @@ class MyFridgeViewModel: ObservableObject {
         triggerDateComponents.year = triggerDate.year
         triggerDateComponents.month = triggerDate.month
         triggerDateComponents.day = triggerDate.day
-        triggerDateComponents.hour = 19
-        triggerDateComponents.minute = 00
+        triggerDateComponents.hour = 09
+        triggerDateComponents.minute = 10
         
         // Триггер
         let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDateComponents, repeats: false)
