@@ -13,6 +13,22 @@ enum NetworkError: Error {
     case decodingError
 }
 
+// MARK: - API Response Models
+struct APIProductCard: Codable {
+    let id: Int
+    let title: String?
+    let totalRating: Double?
+    let description: String?
+    let categoryName, manufacturer: String?
+    let worth: [String]?
+    let criteriaRatings: [CriteriaRating]?
+    let thumbnail: String?
+}
+
+struct APIProductCardResponse: Codable {
+    let response: APIProductCard
+}
+
 final class NetworkManager {
     
     static let shared = NetworkManager()
@@ -20,7 +36,6 @@ final class NetworkManager {
     private init () {}
     
     func fetchCategory() async throws -> CategoriesData {
-
         guard let url = URL(string: "https://rskrf.ru/rest/1/catalog/categories/8/") else {
             throw NetworkError.invalidURL
         }
@@ -35,7 +50,6 @@ final class NetworkManager {
     }
         
     func fetchSubCategories(id: Int) async throws -> ProductGroupData {
-
         guard let url = URL(string: "https://rskrf.ru/rest/1/catalog/categories/\(id)/productGroups/") else {
             throw NetworkError.invalidURL
         }
@@ -50,7 +64,6 @@ final class NetworkManager {
     }
     
     func fetchProductsList(id: Int) async throws -> ProductData {
-
         guard let url = URL(string: "https://rskrf.ru/rest/1/catalog/products/\(id)/") else {
             throw NetworkError.invalidURL
         }
@@ -66,8 +79,7 @@ final class NetworkManager {
         return productData
     }
     
-    func fetchProductCard(id: Int) async throws -> ProductCardData {
-
+    func fetchProductCard(id: Int) async throws -> APIProductCardResponse {
         guard let url = URL(string: "https://rskrf.ru/rest/1/product/\(id)/") else {
             throw NetworkError.invalidURL
         }
@@ -77,14 +89,13 @@ final class NetworkManager {
         }
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        guard let productCardData = try? decoder.decode(ProductCardData.self, from: data) else {
+        guard let productCardData = try? decoder.decode(APIProductCardResponse.self, from: data) else {
             throw NetworkError.decodingError
         }
         return productCardData
     }
     
-    func fetchProductCardForBarcode(barcode: String) async throws -> ProductCardData {
-
+    func fetchProductCardForBarcode(barcode: String) async throws -> APIProductCardResponse {
         guard let url = URL(string: "https://rskrf.ru/rest/1/search/barcode?barcode=\(barcode)") else {
             throw NetworkError.invalidURL
         }
@@ -94,7 +105,7 @@ final class NetworkManager {
         }
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        guard let productCardData = try? decoder.decode(ProductCardData.self, from: data) else {
+        guard let productCardData = try? decoder.decode(APIProductCardResponse.self, from: data) else {
             throw NetworkError.decodingError
         }
         return productCardData

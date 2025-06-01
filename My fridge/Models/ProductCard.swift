@@ -13,7 +13,8 @@ struct ProductCardData: Codable {
 
 // MARK: - Response
 struct ProductCard: Codable {
-    let id: Int?
+    let id: UUID? // Для локальных продуктов
+    let apiId: Int? // Для продуктов из API
     let title: String?
     let totalRating: Double?
     let description: String?
@@ -24,6 +25,32 @@ struct ProductCard: Codable {
     let thumbnail: String?
     let expirationDate: Date?
     let expirationDateString: String?
+    
+    init(id: UUID? = nil,
+         apiId: Int? = nil,
+         title: String?,
+         totalRating: Double?,
+         description: String?,
+         categoryName: String?,
+         manufacturer: String?,
+         worth: [String]?,
+         criteriaRatings: [CriteriaRating]?,
+         thumbnail: String?,
+         expirationDate: Date?,
+         expirationDateString: String?) {
+        self.id = id
+        self.apiId = apiId
+        self.title = title
+        self.totalRating = totalRating
+        self.description = description
+        self.categoryName = categoryName
+        self.manufacturer = manufacturer
+        self.worth = worth
+        self.criteriaRatings = criteriaRatings
+        self.thumbnail = thumbnail
+        self.expirationDate = expirationDate
+        self.expirationDateString = expirationDateString
+    }
 }
 
 // MARK: - CriteriaRating

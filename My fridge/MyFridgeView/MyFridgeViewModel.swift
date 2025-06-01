@@ -9,24 +9,22 @@ import SwiftUI
 
 class MyFridgeViewModel: ObservableObject {
     @Published var rows: [ProductCard] = []
+    @Published var errorMessage: String?
     
     init() {
-        rows = StorageManager.shared.fetchAddedProducts()
-        print("запрос карточки из майфриджвьюмодел")
-    }
-    
-    deinit {
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-        rows.forEach { product in
-            scheduleNotificationForExpiryDate(for: product)
-            scheduleNotificationOneDayBeforeExpiryDate(for: product)
-            scheduleNotificationThreeDayBeforeExpiryDate(for: product)
+        do {
+            rows = try StorageManager.shared.fetchAddedProducts()
+        } catch {
+            errorMessage = "Ошибка при загрузке продуктов: \(error.localizedDescription)"
+            rows = []
         }
     }
     
-    func addProductManual (title: String, manufacturer: String, expirationDate: Date, expirationDateString: String) {
+    func addProductManual(title: String, manufacturer: String, expirationDate: Date, expirationDateString: String) {
         let product = ProductCard(
-            id: 0, title: title,
+            id: UUID(),
+            apiId: nil,
+            title: title,
             totalRating: 0,
             description: "",
             categoryName: "",
@@ -36,41 +34,107 @@ class MyFridgeViewModel: ObservableObject {
             thumbnail: "",
             expirationDate: expirationDate,
             expirationDateString: expirationDateString)
-        rows.append(product)
-        StorageManager.shared.addProduct(productCard: product)
-    }
-    
-    func addScanProduct (product: ProductCard) {
-        rows.append(product)
-        StorageManager.shared.addProduct(productCard: product)
         
+        do {
+            try StorageManager.shared.addProduct(productCard: product)
+            rows.append(product)
+            scheduleAllNotificationsForProduct(product)
+        } catch {
+            errorMessage = "Ошибка при сохранении продукта: \(error.localizedDescription)"
+        }
     }
     
-    // Функция для установки уведомления о сроке годности продукта
-    func scheduleNotificationForExpiryDate(for product: ProductCard) {
-        // Создание контента уведомления
+    func addScanProduct(product: ProductCard) {
+        let productWithId = ProductCard(
+            id: UUID(),
+            apiId: product.apiId,
+            title: product.title,
+            totalRating: product.totalRating,
+            description: product.description,
+            categoryName: product.categoryName,
+            manufacturer: product.manufacturer,
+            worth: product.worth,
+            criteriaRatings: product.criteriaRatings,
+            thumbnail: product.thumbnail,
+            expirationDate: product.expirationDate,
+            expirationDateString: product.expirationDateString)
+        
+        do {
+            try StorageManager.shared.addProduct(productCard: productWithId)
+            rows.append(productWithId)
+            scheduleAllNotificationsForProduct(productWithId)
+        } catch {
+            errorMessage = "Ошибка при сохранении отсканированного продукта: \(error.localizedDescription)"
+        }
+    }
+    
+    private func scheduleAllNotificationsForProduct(_ product: ProductCard) {
+        guard let productId = product.id,
+              let expirationDate = product.expirationDate,
+              let title = product.title else {
+            print("Ошибка: Отсутствуют обязательные данные продукта для создания уведомлений")
+            return
+        }
+        
+        // Проверяем, что дата истечения срока годности не в прошлом
+        let now = Date()
+        guard expirationDate > now else {
+            print("Ошибка: Дата истечения срока годности уже прошла")
+            return
+        }
+        
+        // Уведомление в день истечения срока
+        scheduleNotification(
+            for: productId,
+            title: title,
+            date: expirationDate,
+            message: "Срок годности истекает сегодня",
+            identifier: "product_\(productId)_expiry"
+        )
+        
+        // Уведомление за день до истечения срока
+        if let oneDayBefore = Calendar.current.date(byAdding: .day, value: -1, to: expirationDate),
+           oneDayBefore > now {
+            scheduleNotification(
+                for: productId,
+                title: title,
+                date: oneDayBefore,
+                message: "Срок годности истекает завтра",
+                identifier: "product_\(productId)_one_day"
+            )
+        }
+        
+        // Уведомление за три дня до истечения срока
+        if let threeDaysBefore = Calendar.current.date(byAdding: .day, value: -3, to: expirationDate),
+           threeDaysBefore > now {
+            scheduleNotification(
+                for: productId,
+                title: title,
+                date: threeDaysBefore,
+                message: "Срок годности истекает через 3 дня",
+                identifier: "product_\(productId)_three_days"
+            )
+        }
+    }
+    
+    private func scheduleNotification(for productId: UUID, title: String, date: Date, message: String, identifier: String) {
         let content = UNMutableNotificationContent()
-        content.title = "\(product.title ?? "")"
-        content.body = "Срок годности истекает \(product.expirationDateString ?? "")"
+        content.title = title
+        content.body = message
+        content.sound = .default
         
-        // Создание триггера уведомления на основе даты истечения срока годности
-        let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: product.expirationDate ?? Date())
+        var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
+        dateComponents.hour = 9
+        dateComponents.minute = 0
         
-        // Создание календаря с компонентами даты и временем 9:00 утра
-        var triggerDateComponents = DateComponents()
-        triggerDateComponents.year = triggerDate.year
-        triggerDateComponents.month = triggerDate.month
-        triggerDateComponents.day = triggerDate.day
-        triggerDateComponents.hour = 09
-        triggerDateComponents.minute = 10
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         
-        // Триггер
-        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDateComponents, repeats: false)
+        let request = UNNotificationRequest(
+            identifier: identifier,
+            content: content,
+            trigger: trigger
+        )
         
-        // Создание запроса на уведомление
-        let request = UNNotificationRequest(identifier: "\(String(describing: product.title))", content: content, trigger: trigger)
-        
-        // Добавление запроса в центр уведомлений
         let center = UNUserNotificationCenter.current()
         center.add(request) { error in
             if let error = error {
@@ -79,89 +143,14 @@ class MyFridgeViewModel: ObservableObject {
         }
     }
     
-    
-    // Функция для установки уведомления о истечении срока годности через день
-    func scheduleNotificationOneDayBeforeExpiryDate(for product: ProductCard) {
-        // Создание контента уведомления
-        let content = UNMutableNotificationContent()
-        content.title = "\(product.title ?? "")"
-        content.body = "Срок годности истекает \(product.expirationDateString ?? "")"
-        
-        // Создание триггера уведомления на основе даты истечения срока годности
-        let dateOneDayBeforeExpiryDate = Calendar.current.date(byAdding: .day, value: -1, to: product.expirationDate ?? Date())
-        let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: dateOneDayBeforeExpiryDate ?? Date())
-        
-        // Создание календаря с компонентами даты и временем 9:00 утра
-        var triggerDateComponents = DateComponents()
-        triggerDateComponents.year = triggerDate.year
-        triggerDateComponents.month = triggerDate.month
-        triggerDateComponents.day = triggerDate.day
-        triggerDateComponents.hour = 09
-        triggerDateComponents.minute = 10
-        
-        // Триггер
-        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDateComponents, repeats: false)
-        
-        // Создание запроса на уведомление
-//        var dateOneDayBeforeExpiryDateString: String {
-//            let dateFormatter = DateFormatter()
-//            dateFormatter.dateFormat = "dd.MM.yyyy"
-//            dateFormatter.locale = Locale(identifier: "ru_RU")
-//            let expirationDateString = dateFormatter.string(from: dateOneDayBeforeExpiryDate ?? Date()) // Из даты в строку
-//            return expirationDateString
-//        }
-        
-        let request = UNNotificationRequest(identifier: "\(String(describing: product.title))OneDayBeforeExpiryDate", content: content, trigger: trigger)
-        
-        // Добавление запроса в центр уведомлений
+    func removeNotificationsForProduct(_ productId: UUID) {
         let center = UNUserNotificationCenter.current()
-        center.add(request) { error in
-            if let error = error {
-                print("Ошибка при установке уведомления: \(error.localizedDescription)")
-            }
-        }
-    }
-    
-    
-    // Функция для установки уведомления о истечении срока годности через три дня
-    func scheduleNotificationThreeDayBeforeExpiryDate(for product: ProductCard) {
-        // Создание контента уведомления
-        let content = UNMutableNotificationContent()
-        content.title = "\(product.title ?? "")"
-        content.body = "Срок годности истекает \(product.expirationDateString ?? "")"
-        
-        // Создание триггера уведомления на основе даты истечения срока годности
-        let dateThreeDayBeforeExpiryDate = Calendar.current.date(byAdding: .day, value: -3, to: product.expirationDate ?? Date())
-        let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: dateThreeDayBeforeExpiryDate ?? Date())
-        
-        // Создание календаря с компонентами даты и временем 9:00 утра
-        var triggerDateComponents = DateComponents()
-        triggerDateComponents.year = triggerDate.year
-        triggerDateComponents.month = triggerDate.month
-        triggerDateComponents.day = triggerDate.day
-        triggerDateComponents.hour = 09
-        triggerDateComponents.minute = 10
-        
-        // Триггер
-        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDateComponents, repeats: false)
-        
-        // Создание запроса на уведомление
-//        var dateThreeDayBeforeExpiryDateString: String {
-//            let dateFormatter = DateFormatter()
-//            dateFormatter.dateFormat = "dd.MM.yyyy"
-//            dateFormatter.locale = Locale(identifier: "ru_RU")
-//            let expirationDateString = dateFormatter.string(from: dateThreeDayBeforeExpiryDate ?? Date()) // Из даты в строку
-//            return expirationDateString
-//        }
-        let request = UNNotificationRequest(identifier: "\(String(describing: product.title))ThreeDayBeforeExpiryDate", content: content, trigger: trigger)
-        
-        // Добавление запроса в центр уведомлений
-        let center = UNUserNotificationCenter.current()
-        center.add(request) { error in
-            if let error = error {
-                print("Ошибка при установке уведомления: \(error.localizedDescription)")
-            }
-        }
+        let identifiers = [
+            "product_\(productId)_expiry",
+            "product_\(productId)_one_day",
+            "product_\(productId)_three_days"
+        ]
+        center.removePendingNotificationRequests(withIdentifiers: identifiers)
     }
 }
 

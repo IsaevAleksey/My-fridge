@@ -12,62 +12,65 @@ struct MyFridgeView: View {
     @State private var showAddProductView = false
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             TabView {
                 VStack {
                     Text("Мои продукты")
                         .foregroundColor(Color("TextColor"))
                         .font(.largeTitle).bold()
                     List {
-                        ForEach(viewModel.rows, id: \.title) { productCard in
+                        ForEach(viewModel.rows, id: \.id) { productCard in
                             ProductRow(productTitle: productCard.title ?? "Данные отсутствуют", manufacturer: productCard.manufacturer ?? "Данные отсутствуют", productImageUrl: productCard.thumbnail ?? "Данные отсутствуют", expirationDate: productCard.expirationDateString ?? "")
                                 .frame(height: 60)
                         }
                         .onDelete { indexSet in
-                            StorageManager.shared.deleteAddedProduct(at: indexSet)
+                            indexSet.forEach { index in
+                                if let productId = viewModel.rows[index].id {
+                                    viewModel.removeNotificationsForProduct(productId)
+                                }
+                            }
+                            do {
+                                try StorageManager.shared.deleteAddedProduct(at: indexSet)
+                                viewModel.rows.remove(atOffsets: indexSet)
+                            } catch {
+                                viewModel.errorMessage = "Ошибка при удалении продукта: \(error.localizedDescription)"
+                            }
                         }
                     }
                     .opacity(viewModel.rows.isEmpty ? 0 : 1)
-                    .onAppear {
-                        viewModel.rows.forEach { product in
-                            viewModel.scheduleNotificationForExpiryDate(for: product)
-                            viewModel.scheduleNotificationOneDayBeforeExpiryDate(for: product)
-                            viewModel.scheduleNotificationThreeDayBeforeExpiryDate(for: product)
+                    
+                    if viewModel.rows.isEmpty {
+                        VStack(spacing: 20) {
+                            Image(systemName: "cart.badge.plus")
+                                .font(.system(size: 50))
+                                .foregroundColor(.gray)
+                            Text("Ваш список пуст")
+                                .font(.title2)
+                                .foregroundColor(.gray)
                         }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
-//                    .onDisappear {
-//                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-//                        viewModel.rows.forEach { product in
-//                            viewModel.scheduleNotificationForExpiryDate(for: product)
-//                            viewModel.scheduleNotificationOneDayBeforeExpiryDate(for: product)
-//                            viewModel.scheduleNotificationThreeDayBeforeExpiryDate(for: product)
-//                        }
-//                        print("disappear")
-//                    }
-                    Button(action: {
-                        showAddProductView.toggle()
-                    }) {
-                        Text("Добавить продукт")
-                            .frame(width: 200,height: 40)
+                    
+                    NavigationLink {
+                        AddProductView()
+                            .environmentObject(viewModel)
+                    } label: {
+                        Text("Добавить")
+                            .frame(width: 200, height: 40)
                             .background(Color("BackgroundColor"))
                             .foregroundColor(Color.white)
                             .cornerRadius(20)
                             .shadow(radius: 10)
                     }
-                    .sheet(isPresented: $showAddProductView, content: {
-                        AddProductView().environmentObject(viewModel)
-                    })
-                    Spacer()
+                    .padding(.bottom)
                 }
                 .background(Color(.systemGroupedBackground))
                 .tabItem {
-                    Image(systemName: "refrigerator")
-                    Text("Мои продукты")
+                    Label("Мои продукты", systemImage: "cart")
                 }
                 CatalogView(viewModel: CatalogViewModel())
                 .tabItem {
-                    Image(systemName: "list.bullet")
-                    Text("Каталог")
+                    Label("Каталог", systemImage: "list.bullet")
                 }
             }
             .accentColor(.yellow)
@@ -79,7 +82,20 @@ struct MyFridgeView: View {
                 UITabBar.appearance().standardAppearance = tabBarAppearance
             }
         }
+        .navigationViewStyle(.stack)
         .accentColor(Color("TextColor"))
+        .alert("Ошибка", isPresented: Binding(
+            get: { viewModel.errorMessage != nil },
+            set: { if !$0 { viewModel.errorMessage = nil } }
+        )) {
+            Button("OK") {
+                viewModel.errorMessage = nil
+            }
+        } message: {
+            if let errorMessage = viewModel.errorMessage {
+                Text(errorMessage)
+            }
+        }
     }
 }
 

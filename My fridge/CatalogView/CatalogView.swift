@@ -20,16 +20,17 @@ struct CatalogView: View {
             VStack {
                 ScrollView {
                     LazyVGrid(columns: column) {
-                        ForEach(viewModel.rows, id: \.categoryId) {subCatalogViewModel in
-                            NavigationLink(destination: SubCatalogView(viewModel: subCatalogViewModel), label: {
+                        ForEach(viewModel.rows, id: \.categoryId) { subCatalogViewModel in
+                            NavigationLink(destination: SubCatalogView(viewModel: subCatalogViewModel)) {
                                 CatalogCellView(title: subCatalogViewModel.categoryTitle, imageUrl: subCatalogViewModel.categoryImageUrl)
-                            })
+                            }
                         }
                     }
                 }
             }
             .navigationTitle("Каталог продуктов")
         }
+        .navigationViewStyle(.stack)
         .padding()
         .task {
             await viewModel.fetchCategoriesList()

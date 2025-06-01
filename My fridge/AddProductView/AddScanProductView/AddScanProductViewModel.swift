@@ -14,8 +14,8 @@ class AddScanProductViewModel: ObservableObject {
     var objectWillChange = PassthroughSubject<AddScanProductViewModel, Never>()
     var productCard: ProductCard?
         
-    var productId: Int {
-        productCard?.id ?? 0
+    var productId: Int? {
+        productCard?.apiId
     }
     
     var productTitle: String {
@@ -50,14 +50,31 @@ class AddScanProductViewModel: ObservableObject {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"
         dateFormatter.locale = Locale(identifier: "ru_RU")
-        let expirationDateString = dateFormatter.string(from: expirationDate) // Из даты в строку
+        let expirationDateString = dateFormatter.string(from: expirationDate)
         return expirationDateString
     }
     
     @MainActor func fetchPoductCardForBarcode(barcode: String) async {
         do {
             print("запрос карточки \(barcode)")
-            productCard = try await NetworkManager.shared.fetchProductCardForBarcode(barcode: barcode).response
+            let apiResponse = try await NetworkManager.shared.fetchProductCardForBarcode(barcode: barcode)
+            let apiProduct = apiResponse.response
+            
+            // Создаем новую карточку продукта с обновленными полями
+            productCard = ProductCard(
+                id: nil, // UUID будет создан при добавлении в список
+                apiId: apiProduct.id,
+                title: apiProduct.title,
+                totalRating: apiProduct.totalRating,
+                description: apiProduct.description,
+                categoryName: apiProduct.categoryName,
+                manufacturer: apiProduct.manufacturer,
+                worth: apiProduct.worth,
+                criteriaRatings: apiProduct.criteriaRatings,
+                thumbnail: apiProduct.thumbnail,
+                expirationDate: expirationDate,
+                expirationDateString: expirationDateString
+            )
             objectWillChange.send(self)
         }
         catch {

@@ -12,7 +12,7 @@ class ProductViewModel: ObservableObject {
     var productCard: ProductCard?
     
     var productId: Int {
-        product.id
+        product.id // API возвращает Int ID
     }
     
     var productTitle: String {
@@ -52,7 +52,24 @@ class ProductViewModel: ObservableObject {
     @MainActor func fetchPoductCard(id: Int) async {
         do {
             print("запрос карточки \(id)")
-            productCard = try await NetworkManager.shared.fetchProductCard(id: id).response
+            let apiResponse = try await NetworkManager.shared.fetchProductCard(id: id)
+            let apiProduct = apiResponse.response
+            
+            // Создаем ProductCard из API ответа
+            productCard = ProductCard(
+                id: nil,
+                apiId: apiProduct.id,
+                title: apiProduct.title,
+                totalRating: apiProduct.totalRating,
+                description: apiProduct.description,
+                categoryName: apiProduct.categoryName,
+                manufacturer: apiProduct.manufacturer,
+                worth: apiProduct.worth,
+                criteriaRatings: apiProduct.criteriaRatings,
+                thumbnail: apiProduct.thumbnail,
+                expirationDate: nil,
+                expirationDateString: nil
+            )
             objectWillChange.send(self)
         }
         catch {
