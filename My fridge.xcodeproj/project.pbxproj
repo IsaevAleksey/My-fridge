@@ -41,6 +41,8 @@
 		93834C272B20F1CF0043AE84 /* ProductInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834C262B20F1CF0043AE84 /* ProductInfoView.swift */; };
 		93B24FE82B69636A0034B245 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B24FE72B69636A0034B245 /* ScannerView.swift */; };
 		93B24FEC2B696E6D0034B245 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B24FEB2B696E6D0034B245 /* Scanner.swift */; };
+		93C2C0142E01DC2C00B84D0A /* TextRecognitionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2C0132E01DC2C00B84D0A /* TextRecognitionService.swift */; };
+		93C2C0162E01DC4100B84D0A /* TextRecognitionCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2C0152E01DC4100B84D0A /* TextRecognitionCameraView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +81,8 @@
 		93834C262B20F1CF0043AE84 /* ProductInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInfoView.swift; sourceTree = "<group>"; };
 		93B24FE72B69636A0034B245 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		93B24FEB2B696E6D0034B245 /* Scanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
+		93C2C0132E01DC2C00B84D0A /* TextRecognitionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextRecognitionService.swift; sourceTree = "<group>"; };
+		93C2C0152E01DC4100B84D0A /* TextRecognitionCameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextRecognitionCameraView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +236,7 @@
 		93834C042B1B4AD90043AE84 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				93C2C0132E01DC2C00B84D0A /* TextRecognitionService.swift */,
 				93834C052B1B4B260043AE84 /* NetworkManager.swift */,
 				93834C072B1B4B4C0043AE84 /* ImageCacheManager.swift */,
 				935302582B89169A00939A58 /* StorageManager.swift */,
@@ -271,6 +276,7 @@
 		93B24FEA2B696E590034B245 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				93C2C0152E01DC4100B84D0A /* TextRecognitionCameraView.swift */,
 				93B24FE72B69636A0034B245 /* ScannerView.swift */,
 				93B24FEB2B696E6D0034B245 /* Scanner.swift */,
 			);
@@ -351,6 +357,8 @@
 				932046202B87B000003BC5D2 /* AddScanProductView.swift in Sources */,
 				93834C062B1B4B260043AE84 /* NetworkManager.swift in Sources */,
 				93834C162B1E3CE30043AE84 /* CacheAsyncImage.swift in Sources */,
+				93C2C0162E01DC4100B84D0A /* TextRecognitionCameraView.swift in Sources */,
+				93C2C0142E01DC2C00B84D0A /* TextRecognitionService.swift in Sources */,
 				93834C0A2B1B4CC90043AE84 /* Categories.swift in Sources */,
 				93B24FEC2B696E6D0034B245 /* Scanner.swift in Sources */,
 				935302552B8909E000939A58 /* MyFridgeViewModel.swift in Sources */,

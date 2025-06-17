@@ -12,16 +12,39 @@ struct AddScanProductView: View {
     @EnvironmentObject var myFridgeViewModel: MyFridgeViewModel
     
     @Environment(\.dismiss) private var dismiss
+    @State private var showTextRecognition = false
+    @State private var recognizedProductName = ""
 
     let scannedBarcode: String
     
     var body: some View {
         VStack {
             if viewModel.productTitle == "Нет данных" {
-                Text("К сожалению, в базе Роскачества отсутствует данный штрихкод. Для добавления продукта, пожалуйста, заполните форму ниже.")
-                    .multilineTextAlignment(.center)
-                    .padding(.top)
-                AddProductManualView(viewModel: AddProductManualViewModel(), myFridgeViewModel: _myFridgeViewModel)
+                VStack {
+                    Text("К сожалению, в базе Роскачества отсутствует данный штрихкод.")
+                        .multilineTextAlignment(.center)
+                        .padding(.top)
+                    
+                    Button {
+                        showTextRecognition = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "camera.fill")
+                            Text("Распознать название продукта")
+                        }
+                        .padding()
+                        .background(Color("BackgroundColor"))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                    }
+                    .padding()
+                    
+                    Text("Или заполните форму вручную:")
+                        .padding(.top)
+                    
+                    AddProductManualView(viewModel: AddProductManualViewModel())
+                        .environmentObject(myFridgeViewModel)
+                }
             } else {
                 HStack(alignment: .center) {
                     ProductLogoImage(productLogoUrl: viewModel.productImageUrl)
@@ -69,6 +92,31 @@ struct AddScanProductView: View {
                         .cornerRadius(20)
                         .shadow(radius: 10)
                 }
+            }
+        }
+        .sheet(isPresented: $showTextRecognition) {
+            TextRecognitionCameraView(recognizedProductName: $recognizedProductName)
+        }
+        .onChange(of: recognizedProductName) { newValue in
+            if !newValue.isEmpty {
+                // Создаем новый ProductCard с распознанным названием
+                let product = ProductCard(
+                    id: UUID(),
+                    apiId: nil,
+                    title: newValue,
+                    totalRating: 0,
+                    description: "",
+                    categoryName: "",
+                    manufacturer: "",
+                    worth: [],
+                    criteriaRatings: nil,
+                    thumbnail: "",
+                    expirationDate: Date(),
+                    expirationDateString: ""
+                )
+                myFridgeViewModel.addScanProduct(product: product)
+                dismiss()
+                dismiss()
             }
         }
     }
