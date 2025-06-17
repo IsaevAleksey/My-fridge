@@ -35,6 +35,7 @@ struct AddProductView: View {
             HStack {
                 NavigationLink {
                     AddProductManualView(viewModel: AddProductManualViewModel())
+                        .environmentObject(viewModel)
                 } label: {
                     Text("Добавить вручную")
                         .frame(width: 170,height: 40)
@@ -45,6 +46,7 @@ struct AddProductView: View {
                 }
                 NavigationLink {
                     AddScanProductView(viewModel: AddScanProductViewModel(), scannedBarcode: scannedCode ?? "")
+                        .environmentObject(viewModel)
                 } label: {
                     Text("Далее")
                         .frame(width: 170,height: 40)

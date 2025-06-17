@@ -10,8 +10,8 @@ import SwiftUI
 struct AddProductManualView: View {
     @StateObject var viewModel: AddProductManualViewModel
     @EnvironmentObject var myFridgeViewModel: MyFridgeViewModel
-
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         VStack {
@@ -35,14 +35,15 @@ struct AddProductManualView: View {
             .padding(.vertical)
             Spacer()
             Button {
-//                viewModel.addProduct(title: viewModel.productName, manufacturer: viewModel.productManufactured)
                 myFridgeViewModel.addProductManual(
                     title: viewModel.productName,
                     manufacturer: viewModel.productManufactured,
                     expirationDate: viewModel.expirationDate,
                     expirationDateString: viewModel.expirationDateString
                 )
-                dismiss()
+                // Закрываем все экраны навигации до корневого
+                presentationMode.wrappedValue.dismiss()
+                presentationMode.wrappedValue.dismiss()
             } label: {
                 Text("Добавить")
                     .frame(width: 200,height: 40)
