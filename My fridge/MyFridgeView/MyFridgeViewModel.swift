@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 class MyFridgeViewModel: ObservableObject {
     @Published var rows: [ProductCard] = []
@@ -14,10 +15,17 @@ class MyFridgeViewModel: ObservableObject {
     init() {
         do {
             rows = try StorageManager.shared.fetchAddedProducts()
+            // Планируем уведомления для всех загруженных продуктов
+            for product in rows {
+                scheduleAllNotificationsForProduct(product)
+            }
         } catch {
             errorMessage = "Ошибка при загрузке продуктов: \(error.localizedDescription)"
             rows = []
         }
+        
+        // Проверяем статус уведомлений при запуске
+        checkNotificationStatus()
     }
     
     func addProductManual(title: String, manufacturer: String, expirationDate: Date, expirationDateString: String) {
@@ -72,14 +80,33 @@ class MyFridgeViewModel: ObservableObject {
         guard let productId = product.id,
               let expirationDate = product.expirationDate,
               let title = product.title else {
-            print("Ошибка: Отсутствуют обязательные данные продукта для создания уведомлений")
+            print("❌ Ошибка: Отсутствуют обязательные данные продукта для создания уведомлений")
             return
         }
         
+        print("📅 Планирование уведомлений для продукта: \(title)")
+        print("   - ID: \(productId)")
+        print("   - Дата истечения: \(expirationDate)")
+        
+        // Проверяем разрешения на уведомления
+        let center = UNUserNotificationCenter.current()
+        center.getNotificationSettings { settings in
+            guard settings.authorizationStatus == .authorized else {
+                print("❌ Разрешения на уведомления не предоставлены")
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.scheduleNotificationsForProduct(product, productId: productId, expirationDate: expirationDate, title: title)
+            }
+        }
+    }
+    
+    private func scheduleNotificationsForProduct(_ product: ProductCard, productId: UUID, expirationDate: Date, title: String) {
         // Проверяем, что дата истечения срока годности не в прошлом
         let now = Date()
         guard expirationDate > now else {
-            print("Ошибка: Дата истечения срока годности уже прошла")
+            print("❌ Дата истечения срока годности уже прошла: \(expirationDate)")
             return
         }
         
@@ -138,7 +165,9 @@ class MyFridgeViewModel: ObservableObject {
         let center = UNUserNotificationCenter.current()
         center.add(request) { error in
             if let error = error {
-                print("Ошибка при установке уведомления: \(error.localizedDescription)")
+                print("❌ Ошибка при установке уведомления \(identifier): \(error.localizedDescription)")
+            } else {
+                print("✅ Уведомление \(identifier) запланировано на \(date)")
             }
         }
     }
@@ -151,6 +180,64 @@ class MyFridgeViewModel: ObservableObject {
             "product_\(productId)_three_days"
         ]
         center.removePendingNotificationRequests(withIdentifiers: identifiers)
+        print("🗑️ Удалены уведомления для продукта: \(productId)")
+    }
+    
+    // Функция для отладки - показывает все запланированные уведомления
+    func debugPendingNotifications() {
+        let center = UNUserNotificationCenter.current()
+        center.getPendingNotificationRequests { requests in
+            print("📋 Запланированные уведомления (\(requests.count)):")
+            for request in requests {
+                if let trigger = request.trigger as? UNCalendarNotificationTrigger {
+                    let nextTriggerDate = trigger.nextTriggerDate()
+                    print("   - \(request.identifier): \(nextTriggerDate?.description ?? "неизвестно")")
+                }
+            }
+        }
+    }
+    
+    // Функция для тестирования уведомлений - создает уведомление через 5 секунд
+    func createTestNotification() {
+        let content = UNMutableNotificationContent()
+        content.title = "Тестовое уведомление"
+        content.body = "Это тестовое уведомление для проверки работы системы"
+        content.sound = .default
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        
+        let request = UNNotificationRequest(
+            identifier: "test_notification",
+            content: content,
+            trigger: trigger
+        )
+        
+        let center = UNUserNotificationCenter.current()
+        center.add(request) { error in
+            if let error = error {
+                print("❌ Ошибка при создании тестового уведомления: \(error.localizedDescription)")
+            } else {
+                print("✅ Тестовое уведомление создано и придет через 5 секунд")
+            }
+        }
+    }
+    
+    // Функция для проверки статуса уведомлений в системе
+    func checkNotificationStatus() {
+        let center = UNUserNotificationCenter.current()
+        center.getNotificationSettings { settings in
+            print("📱 Статус уведомлений в системе:")
+            print("   - Авторизация: \(settings.authorizationStatus.rawValue)")
+            print("   - Уведомления: \(settings.alertSetting == .enabled ? "✅" : "❌")")
+            print("   - Звуки: \(settings.soundSetting == .enabled ? "✅" : "❌")")
+            print("   - Бейджи: \(settings.badgeSetting == .enabled ? "✅" : "❌")")
+            print("   - Блокировка экрана: \(settings.lockScreenSetting == .enabled ? "✅" : "❌")")
+            print("   - Центр уведомлений: \(settings.notificationCenterSetting == .enabled ? "✅" : "❌")")
+            
+            if settings.authorizationStatus != .authorized {
+                print("⚠️ Для работы уведомлений необходимо предоставить разрешения в настройках")
+            }
+        }
     }
 }
 
