@@ -15,13 +15,30 @@ struct AddScanProductView: View {
 
     let scannedBarcode: String
     
+    @State private var isShowingTextRecognition = false
+    @State private var recognizedProductName = ""
+    @State private var shouldShowManualView = false
+
     var body: some View {
         VStack {
             if viewModel.productTitle == "Нет данных" {
                 Text("К сожалению, в базе Роскачества отсутствует данный штрихкод. Для добавления продукта, пожалуйста, заполните форму ниже.")
                     .multilineTextAlignment(.center)
                     .padding(.top)
-                AddProductManualView(viewModel: AddProductManualViewModel(), myFridgeViewModel: _myFridgeViewModel)
+
+                Button("Распознать название с камеры") {
+                    isShowingTextRecognition = true
+                }
+                .padding()
+
+                NavigationLink(
+                    destination: AddProductManualView(
+                        viewModel: AddProductManualViewModel(productName: recognizedProductName)
+                    ).environmentObject(myFridgeViewModel),
+                    isActive: $shouldShowManualView
+                ) {
+                    EmptyView()
+                }
             } else {
                 HStack(alignment: .center) {
                     ProductLogoImage(productLogoUrl: viewModel.productImageUrl)
@@ -70,6 +87,13 @@ struct AddScanProductView: View {
                         .shadow(radius: 10)
                 }
             }
+        }
+        .sheet(isPresented: $isShowingTextRecognition, onDismiss: {
+            if !recognizedProductName.isEmpty {
+                shouldShowManualView = true
+            }
+        }) {
+            TextRecognitionCameraView(recognizedProductName: $recognizedProductName)
         }
     }
 }

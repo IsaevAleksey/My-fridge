@@ -9,8 +9,12 @@ import Foundation
 
 class AddProductManualViewModel: ObservableObject {
     @Published var expirationDate = Date()
-    @Published var productName: String = ""
+    @Published var productName: String
     @Published var productManufactured: String = ""
+    
+    init(productName: String = "") {
+        self.productName = productName
+    }
     
     var expirationDateString: String {
         let dateFormatter = DateFormatter()
