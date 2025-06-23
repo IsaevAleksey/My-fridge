@@ -19,30 +19,6 @@ struct MyFridgeView: View {
                         .foregroundColor(Color("TextColor"))
                         .font(.largeTitle).bold()
                     
-                    // Кнопка для отладки уведомлений (только для разработки)
-                    #if DEBUG
-                    VStack(spacing: 5) {
-                        Button("Статус уведомлений") {
-                            viewModel.checkNotificationStatus()
-                        }
-                        .font(.caption)
-                        .foregroundColor(.green)
-                        
-                        Button("Отладка уведомлений") {
-                            viewModel.debugPendingNotifications()
-                        }
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                        
-                        Button("Тест уведомления (5 сек)") {
-                            viewModel.createTestNotification()
-                        }
-                        .font(.caption)
-                        .foregroundColor(.blue)
-                    }
-                    .padding(.bottom, 5)
-                    #endif
-                    
                     List {
                         ForEach(viewModel.rows, id: \.id) { productCard in
                             ProductRow(productTitle: productCard.title ?? "Данные отсутствуют", manufacturer: productCard.manufacturer ?? "Данные отсутствуют", productImageUrl: productCard.thumbnail ?? "Данные отсутствуют", expirationDate: productCard.expirationDateString ?? "")

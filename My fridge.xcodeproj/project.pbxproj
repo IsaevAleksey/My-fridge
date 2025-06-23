@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		930530652E098F45005E9D25 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 930530642E098F45005E9D25 /* Info.plist */; };
 		931EEDE82B1646BB0006E4AD /* My_fridgeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931EEDE72B1646BB0006E4AD /* My_fridgeApp.swift */; };
 		931EEDEC2B1646BC0006E4AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 931EEDEB2B1646BC0006E4AD /* Assets.xcassets */; };
 		931EEDEF2B1646BC0006E4AD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 931EEDEE2B1646BC0006E4AD /* Preview Assets.xcassets */; };
@@ -41,10 +42,10 @@
 		93834C272B20F1CF0043AE84 /* ProductInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834C262B20F1CF0043AE84 /* ProductInfoView.swift */; };
 		93B24FE82B69636A0034B245 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B24FE72B69636A0034B245 /* ScannerView.swift */; };
 		93B24FEC2B696E6D0034B245 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B24FEB2B696E6D0034B245 /* Scanner.swift */; };
-		93ED93402E0328EA00FE90E9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 93ED933F2E0328EA00FE90E9 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		930530642E098F45005E9D25 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		931EEDE42B1646BB0006E4AD /* My fridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My fridge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		931EEDE72B1646BB0006E4AD /* My_fridgeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = My_fridgeApp.swift; sourceTree = "<group>"; };
 		931EEDEB2B1646BC0006E4AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -80,7 +81,6 @@
 		93834C262B20F1CF0043AE84 /* ProductInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInfoView.swift; sourceTree = "<group>"; };
 		93B24FE72B69636A0034B245 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		93B24FEB2B696E6D0034B245 /* Scanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
-		93ED933F2E0328EA00FE90E9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,7 +113,7 @@
 		931EEDE62B1646BB0006E4AD /* My fridge */ = {
 			isa = PBXGroup;
 			children = (
-				93ED933F2E0328EA00FE90E9 /* Info.plist */,
+				930530642E098F45005E9D25 /* Info.plist */,
 				931EEDE72B1646BB0006E4AD /* My_fridgeApp.swift */,
 				93834BEF2B1660210043AE84 /* MyFridgeView */,
 				93834BF02B1660330043AE84 /* CatalogView */,
@@ -340,7 +340,6 @@
 			files = (
 				931EEDEF2B1646BC0006E4AD /* Preview Assets.xcassets in Resources */,
 				931EEDEC2B1646BC0006E4AD /* Assets.xcassets in Resources */,
-				93ED93402E0328EA00FE90E9 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,8 +513,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"My fridge/Preview Content\"";
 				DEVELOPMENT_TEAM = S8C8X7JYR4;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "My-fridge-Info.plist";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "My fridge/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Мой холодильник";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Необходимо разрешить доступ к камере для сканирования штрих-кода";
@@ -553,8 +552,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"My fridge/Preview Content\"";
 				DEVELOPMENT_TEAM = S8C8X7JYR4;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "My-fridge-Info.plist";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "My fridge/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Мой холодильник";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Необходимо разрешить доступ к камере для сканирования штрих-кода";

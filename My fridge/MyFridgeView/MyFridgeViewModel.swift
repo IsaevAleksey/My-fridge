@@ -23,9 +23,6 @@ class MyFridgeViewModel: ObservableObject {
             errorMessage = "Ошибка при загрузке продуктов: \(error.localizedDescription)"
             rows = []
         }
-        
-        // Проверяем статус уведомлений при запуске
-        checkNotificationStatus()
     }
     
     func addProductManual(title: String, manufacturer: String, expirationDate: Date, expirationDateString: String) {
@@ -181,63 +178,6 @@ class MyFridgeViewModel: ObservableObject {
         ]
         center.removePendingNotificationRequests(withIdentifiers: identifiers)
         print("🗑️ Удалены уведомления для продукта: \(productId)")
-    }
-    
-    // Функция для отладки - показывает все запланированные уведомления
-    func debugPendingNotifications() {
-        let center = UNUserNotificationCenter.current()
-        center.getPendingNotificationRequests { requests in
-            print("📋 Запланированные уведомления (\(requests.count)):")
-            for request in requests {
-                if let trigger = request.trigger as? UNCalendarNotificationTrigger {
-                    let nextTriggerDate = trigger.nextTriggerDate()
-                    print("   - \(request.identifier): \(nextTriggerDate?.description ?? "неизвестно")")
-                }
-            }
-        }
-    }
-    
-    // Функция для тестирования уведомлений - создает уведомление через 5 секунд
-    func createTestNotification() {
-        let content = UNMutableNotificationContent()
-        content.title = "Тестовое уведомление"
-        content.body = "Это тестовое уведомление для проверки работы системы"
-        content.sound = .default
-        
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-        
-        let request = UNNotificationRequest(
-            identifier: "test_notification",
-            content: content,
-            trigger: trigger
-        )
-        
-        let center = UNUserNotificationCenter.current()
-        center.add(request) { error in
-            if let error = error {
-                print("❌ Ошибка при создании тестового уведомления: \(error.localizedDescription)")
-            } else {
-                print("✅ Тестовое уведомление создано и придет через 5 секунд")
-            }
-        }
-    }
-    
-    // Функция для проверки статуса уведомлений в системе
-    func checkNotificationStatus() {
-        let center = UNUserNotificationCenter.current()
-        center.getNotificationSettings { settings in
-            print("📱 Статус уведомлений в системе:")
-            print("   - Авторизация: \(settings.authorizationStatus.rawValue)")
-            print("   - Уведомления: \(settings.alertSetting == .enabled ? "✅" : "❌")")
-            print("   - Звуки: \(settings.soundSetting == .enabled ? "✅" : "❌")")
-            print("   - Бейджи: \(settings.badgeSetting == .enabled ? "✅" : "❌")")
-            print("   - Блокировка экрана: \(settings.lockScreenSetting == .enabled ? "✅" : "❌")")
-            print("   - Центр уведомлений: \(settings.notificationCenterSetting == .enabled ? "✅" : "❌")")
-            
-            if settings.authorizationStatus != .authorized {
-                print("⚠️ Для работы уведомлений необходимо предоставить разрешения в настройках")
-            }
-        }
     }
 }
 
