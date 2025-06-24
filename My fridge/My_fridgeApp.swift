@@ -56,6 +56,7 @@ struct My_fridgeApp: App {
     var body: some Scene {
         WindowGroup {
             MyFridgeView(viewModel: myFridgeViewModel)
+                .environmentObject(myFridgeViewModel)
         }
     }
 }

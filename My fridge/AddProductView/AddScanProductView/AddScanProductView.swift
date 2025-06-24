@@ -17,32 +17,53 @@ struct AddScanProductView: View {
     
     var body: some View {
         VStack {
-            if viewModel.productTitle == "Нет данных" {
-                Text("К сожалению, в базе Роскачества отсутствует данный штрихкод. Для добавления продукта, пожалуйста, заполните форму ниже.")
+            if viewModel.isLoading {
+                Spacer()
+                ProgressView("Поиск продукта...")
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .padding()
+                Spacer()
+            } else if viewModel.notFoundError {
+                Spacer()
+                Image(systemName: "exclamationmark.triangle")
+                    .font(.system(size: 50))
+                    .foregroundColor(.orange)
+                    .padding(.bottom)
+                Text("Продукт не найден. Попробуйте отсканировать другой штрихкод или добавьте продукт вручную.")
+                    .multilineTextAlignment(.center)
+                    .padding()
+                AddProductManualView(viewModel: AddProductManualViewModel(), myFridgeViewModel: _myFridgeViewModel)
+                Spacer()
+            } else if viewModel.productCard == nil {
+                Text("К сожалению, продукт не найден. Для добавления продукта, пожалуйста, заполните форму ниже.")
                     .multilineTextAlignment(.center)
                     .padding(.top)
                 AddProductManualView(viewModel: AddProductManualViewModel(), myFridgeViewModel: _myFridgeViewModel)
             } else {
                 HStack(alignment: .center) {
                     ProductLogoImage(productLogoUrl: viewModel.productImageUrl)
-                        .frame(width: 100, height: 100)
-                    VStack {
+                        .frame(width: 50, height: 50)
+                    VStack(alignment: .leading) {
                         Text(viewModel.productTitle)
-                            .frame(height: 100)
+                            .bold()
+//                            .frame(height: 100)
                             .minimumScaleFactor(0.7)
+                        Text(viewModel.productManufacturer)
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
                     }
+                    .padding(.top)
                     Spacer()
-                    Text(String(format: "%.2f", viewModel.productRating))
-                    Image(systemName: "star.leadinghalf.filled")
-                        .foregroundColor(.yellow)
+                    if viewModel.productRating != 0 {
+                        Text(String(format: "%.2f", viewModel.productRating))
+                        Image(systemName: "star.leadinghalf.filled")
+                            .foregroundColor(.yellow)
+                    }
                 }
                 .padding([.leading, .bottom, .trailing])
-                .task {
-                    await viewModel.fetchPoductCardForBarcode(barcode: scannedBarcode)
-                }
                 ScrollView {
                     ProductInfoView(worth: viewModel.productWorth)
-                    ForEach(viewModel.criteriaRatings, id: \.self) { rating in
+                    ForEach(viewModel.criteriaRatings, id: \ .self) { rating in
                         CriteriaRatingView(criteriaRating: rating)
                     }
                 }
@@ -54,28 +75,50 @@ struct AddScanProductView: View {
                     displayedComponents: [.date]
                 )
                 .environment(\.locale, Locale(identifier: "ru_RU"))
-                .padding(.vertical)
+                .padding(.all)
                 Spacer()
                 Button {
                     guard let product = viewModel.productCard else { return }
-                    myFridgeViewModel.addScanProduct(product: product)
+                    let updatedProduct = ProductCard(
+                        id: product.id,
+                        apiId: product.apiId,
+                        title: product.title,
+                        totalRating: product.totalRating,
+                        description: product.description,
+                        categoryName: product.categoryName,
+                        manufacturer: product.manufacturer,
+                        worth: product.worth,
+                        criteriaRatings: product.criteriaRatings,
+                        thumbnail: product.thumbnail,
+                        expirationDate: viewModel.expirationDate,
+                        expirationDateString: viewModel.expirationDateString
+                    )
+                    myFridgeViewModel.addScanProduct(product: updatedProduct)
                     dismiss()
                     dismiss()
                 } label: {
-                    Text("Добавить")
-                        .frame(width: 200,height: 40)
+                    Text("Добавить продукт")
+                        .frame(width: 200, height: 40)
                         .background(Color("BackgroundColor"))
                         .foregroundColor(Color.white)
                         .cornerRadius(20)
                         .shadow(radius: 10)
                 }
+                .padding(.horizontal)
             }
+        }
+        .onAppear {
+            print("=== AddScanProductView body построен, scannedBarcode: \(scannedBarcode) ===")
+        }
+        .task {
+            print("=== .task вызван, scannedBarcode: \(scannedBarcode) ===")
+            await viewModel.fetchPoductCardForBarcode(barcode: scannedBarcode)
         }
     }
 }
 
 struct AddScanProductView_Previews: PreviewProvider {
     static var previews: some View {
-        AddScanProductView(viewModel: AddScanProductViewModel(), scannedBarcode: "")
+        AddScanProductView(viewModel: AddScanProductViewModel(), scannedBarcode: "4600605033906")
     }
 }

@@ -19,18 +19,18 @@ struct ProductLogoImage: View {
                     .aspectRatio(contentMode: .fill)
                     .cornerRadius(10)
             case .empty:
-                Image(systemName: "xmark.shield")
+                Image("no_product")
                     .resizable()
                     .frame(width: 50, height: 50)
                     .cornerRadius(10)
             case .failure:
-                Image(systemName: "xmark.shield")
+                Image("no_product")
                     .resizable()
                     .frame(width: 50, height: 50)
                     .cornerRadius(10)
                     .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black, lineWidth: 1))
             @unknown default:
-                Image(systemName: "xmark.shield")
+                Image("no_product")
                     .frame(width: 50, height: 50)
                     .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black, lineWidth: 1))
             }
