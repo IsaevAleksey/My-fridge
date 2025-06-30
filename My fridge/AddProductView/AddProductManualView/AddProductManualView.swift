@@ -41,8 +41,6 @@ struct AddProductManualView: View {
                     expirationDate: viewModel.expirationDate,
                     expirationDateString: viewModel.expirationDateString
                 )
-                // Закрываем все экраны навигации до корневого
-                presentationMode.wrappedValue.dismiss()
                 presentationMode.wrappedValue.dismiss()
             } label: {
                 Text("Добавить")

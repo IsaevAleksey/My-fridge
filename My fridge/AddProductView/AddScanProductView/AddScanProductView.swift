@@ -32,13 +32,15 @@ struct AddScanProductView: View {
                 Text("Продукт не найден. Попробуйте отсканировать другой штрихкод или добавьте продукт вручную.")
                     .multilineTextAlignment(.center)
                     .padding()
-                AddProductManualView(viewModel: AddProductManualViewModel(), myFridgeViewModel: _myFridgeViewModel)
+                AddProductManualView(viewModel: AddProductManualViewModel())
+                    .environmentObject(myFridgeViewModel)
                 Spacer()
             } else if viewModel.productCard == nil {
                 Text("К сожалению, продукт не найден. Для добавления продукта, пожалуйста, заполните форму ниже.")
                     .multilineTextAlignment(.center)
                     .padding(.top)
-                AddProductManualView(viewModel: AddProductManualViewModel(), myFridgeViewModel: _myFridgeViewModel)
+                AddProductManualView(viewModel: AddProductManualViewModel())
+                    .environmentObject(myFridgeViewModel)
             } else {
                 HStack(alignment: .center) {
                     ProductLogoImage(productLogoUrl: viewModel.productImageUrl)
@@ -52,7 +54,7 @@ struct AddScanProductView: View {
                             .font(.subheadline)
                             .foregroundColor(.gray)
                     }
-                    .padding(.top)
+                    .padding([.top, .leading])
                     Spacer()
                     if viewModel.productRating != 0 {
                         Text(String(format: "%.2f", viewModel.productRating))
@@ -94,7 +96,6 @@ struct AddScanProductView: View {
                         expirationDateString: viewModel.expirationDateString
                     )
                     myFridgeViewModel.addScanProduct(product: updatedProduct)
-                    dismiss()
                     dismiss()
                 } label: {
                     Text("Добавить продукт")
