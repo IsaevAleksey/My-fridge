@@ -12,6 +12,7 @@ class AddScanProductViewModel: ObservableObject {
     @Published var expirationDate = Date()
     @Published var isLoading = false
     @Published var notFoundError = false
+    @Published var storageLocation: StorageLocation = .defaultLocation
 
     var objectWillChange = PassthroughSubject<AddScanProductViewModel, Never>()
     var productCard: ProductCard?

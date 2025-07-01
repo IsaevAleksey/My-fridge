@@ -78,6 +78,18 @@ struct AddScanProductView: View {
                 )
                 .environment(\.locale, Locale(identifier: "ru_RU"))
                 .padding(.all)
+                
+                Text("Место хранения")
+                    .bold()
+                    .padding(.top)
+                Picker("Место хранения", selection: $viewModel.storageLocation) {
+                    ForEach(StorageLocation.allCases, id: \.self) { location in
+                        Text(location.rawValue).tag(location)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding(.horizontal)
+                
                 Spacer()
                 Button {
                     guard let product = viewModel.productCard else { return }
@@ -93,9 +105,10 @@ struct AddScanProductView: View {
                         criteriaRatings: product.criteriaRatings,
                         thumbnail: product.thumbnail,
                         expirationDate: viewModel.expirationDate,
-                        expirationDateString: viewModel.expirationDateString
+                        expirationDateString: viewModel.expirationDateString,
+                        storageLocation: viewModel.storageLocation
                     )
-                    myFridgeViewModel.addScanProduct(product: updatedProduct)
+                    myFridgeViewModel.addScanProduct(product: updatedProduct, storageLocation: viewModel.storageLocation)
                     dismiss()
                 } label: {
                     Text("Добавить продукт")

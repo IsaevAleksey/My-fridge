@@ -19,33 +19,56 @@ struct MyFridgeView: View {
                         .foregroundColor(Color("TextColor"))
                         .font(.largeTitle).bold()
                     
+                    // Фильтр по месту хранения
+                    Picker("Место хранения", selection: Binding(
+                        get: { viewModel.selectedStorageLocation },
+                        set: { viewModel.setStorageLocationFilter($0) }
+                    )) {
+                        Text("Все").tag(nil as StorageLocation?)
+                        ForEach(StorageLocation.allCases, id: \.self) { location in
+                            Text(location.rawValue).tag(location as StorageLocation?)
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding(.horizontal)
+                    .padding(.bottom, 8)
+                    
                     List {
-                        ForEach(viewModel.rows, id: \.id) { productCard in
+                        ForEach(viewModel.filteredRows, id: \.id) { productCard in
                             ProductRow(productTitle: productCard.title ?? "Данные отсутствуют", manufacturer: productCard.manufacturer ?? "Данные отсутствуют", productImageUrl: productCard.thumbnail ?? "Данные отсутствуют", expirationDate: productCard.expirationDateString ?? "")
                                 .frame(height: 60)
                         }
                         .onDelete { indexSet in
-                            indexSet.forEach { index in
+                            // Находим индексы в полном массиве rows
+                            let filteredIndices = indexSet.map { viewModel.filteredRows[$0] }
+                            let fullIndices = filteredIndices.compactMap { product in
+                                viewModel.rows.firstIndex { $0.id == product.id }
+                            }
+                            
+                            // Удаляем уведомления
+                            for index in fullIndices {
                                 if let productId = viewModel.rows[index].id {
                                     viewModel.removeNotificationsForProduct(productId)
                                 }
                             }
+                            
+                            // Удаляем продукты
                             do {
-                                try StorageManager.shared.deleteAddedProduct(at: indexSet)
-                                viewModel.rows.remove(atOffsets: indexSet)
+                                try StorageManager.shared.deleteAddedProduct(at: IndexSet(fullIndices))
+                                viewModel.rows.remove(atOffsets: IndexSet(fullIndices))
                             } catch {
                                 viewModel.errorMessage = "Ошибка при удалении продукта: \(error.localizedDescription)"
                             }
                         }
                     }
-                    .opacity(viewModel.rows.isEmpty ? 0 : 1)
+                    .opacity(viewModel.filteredRows.isEmpty ? 0 : 1)
                     
-                    if viewModel.rows.isEmpty {
+                    if viewModel.filteredRows.isEmpty {
                         VStack(spacing: 20) {
                             Image(systemName: "cart.badge.plus")
                                 .font(.system(size: 50))
                                 .foregroundColor(.gray)
-                            Text("Ваш список пуст")
+                            Text(viewModel.rows.isEmpty ? "Ваш список пуст" : "Нет продуктов в выбранном месте")
                                 .font(.title2)
                                 .foregroundColor(.gray)
                         }

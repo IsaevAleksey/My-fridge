@@ -11,6 +11,14 @@ import UserNotifications
 class MyFridgeViewModel: ObservableObject {
     @Published var rows: [ProductCard] = []
     @Published var errorMessage: String?
+    @Published var selectedStorageLocation: StorageLocation? = nil // nil означает "Все"
+    
+    var filteredRows: [ProductCard] {
+        guard let selectedLocation = selectedStorageLocation else {
+            return rows // Показываем все продукты
+        }
+        return rows.filter { $0.storageLocation == selectedLocation }
+    }
     
     init() {
         do {
@@ -25,7 +33,7 @@ class MyFridgeViewModel: ObservableObject {
         }
     }
     
-    func addProductManual(title: String, manufacturer: String, expirationDate: Date, expirationDateString: String) {
+    func addProductManual(title: String, manufacturer: String, expirationDate: Date, expirationDateString: String, storageLocation: StorageLocation = .defaultLocation) {
         let product = ProductCard(
             id: UUID(),
             apiId: nil,
@@ -38,7 +46,8 @@ class MyFridgeViewModel: ObservableObject {
             criteriaRatings: nil,
             thumbnail: "",
             expirationDate: expirationDate,
-            expirationDateString: expirationDateString)
+            expirationDateString: expirationDateString,
+            storageLocation: storageLocation)
         
         do {
             try StorageManager.shared.addProduct(productCard: product)
@@ -49,7 +58,7 @@ class MyFridgeViewModel: ObservableObject {
         }
     }
     
-    func addScanProduct(product: ProductCard) {
+    func addScanProduct(product: ProductCard, storageLocation: StorageLocation = .defaultLocation) {
         let productWithId = ProductCard(
             id: UUID(),
             apiId: product.apiId,
@@ -62,7 +71,8 @@ class MyFridgeViewModel: ObservableObject {
             criteriaRatings: product.criteriaRatings,
             thumbnail: product.thumbnail,
             expirationDate: product.expirationDate,
-            expirationDateString: product.expirationDateString)
+            expirationDateString: product.expirationDateString,
+            storageLocation: storageLocation)
         
         do {
             try StorageManager.shared.addProduct(productCard: productWithId)
@@ -71,6 +81,10 @@ class MyFridgeViewModel: ObservableObject {
         } catch {
             errorMessage = "Ошибка при сохранении отсканированного продукта: \(error.localizedDescription)"
         }
+    }
+    
+    func setStorageLocationFilter(_ location: StorageLocation?) {
+        selectedStorageLocation = location
     }
     
     private func scheduleAllNotificationsForProduct(_ product: ProductCard) {

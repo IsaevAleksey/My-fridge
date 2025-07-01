@@ -11,6 +11,7 @@ class AddProductManualViewModel: ObservableObject {
     @Published var expirationDate = Date()
     @Published var productName: String = ""
     @Published var productManufactured: String = ""
+    @Published var storageLocation: StorageLocation = .defaultLocation
     
     var expirationDateString: String {
         let dateFormatter = DateFormatter()

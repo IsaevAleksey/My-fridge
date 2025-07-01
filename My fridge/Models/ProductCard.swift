@@ -25,6 +25,7 @@ struct ProductCard: Codable {
     let thumbnail: String?
     let expirationDate: Date?
     let expirationDateString: String?
+    let storageLocation: StorageLocation?
     
     init(id: UUID? = nil,
          apiId: Int? = nil,
@@ -37,7 +38,8 @@ struct ProductCard: Codable {
          criteriaRatings: [CriteriaRating]?,
          thumbnail: String?,
          expirationDate: Date?,
-         expirationDateString: String?) {
+         expirationDateString: String?,
+         storageLocation: StorageLocation? = .defaultLocation) {
         self.id = id
         self.apiId = apiId
         self.title = title
@@ -50,6 +52,7 @@ struct ProductCard: Codable {
         self.thumbnail = thumbnail
         self.expirationDate = expirationDate
         self.expirationDateString = expirationDateString
+        self.storageLocation = storageLocation
     }
 }
 

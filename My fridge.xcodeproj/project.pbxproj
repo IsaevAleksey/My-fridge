@@ -42,6 +42,7 @@
 		93834C272B20F1CF0043AE84 /* ProductInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93834C262B20F1CF0043AE84 /* ProductInfoView.swift */; };
 		93B24FE82B69636A0034B245 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B24FE72B69636A0034B245 /* ScannerView.swift */; };
 		93B24FEC2B696E6D0034B245 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B24FEB2B696E6D0034B245 /* Scanner.swift */; };
+		93BDE3A82E135C8900B37CD1 /* StorageLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BDE3A72E135C8900B37CD1 /* StorageLocation.swift */; };
 		93ECC1A02E09DFB500B0B5A9 /* OpenFoodFactsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ECC19F2E09DFB500B0B5A9 /* OpenFoodFactsService.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +84,7 @@
 		93834C262B20F1CF0043AE84 /* ProductInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInfoView.swift; sourceTree = "<group>"; };
 		93B24FE72B69636A0034B245 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		93B24FEB2B696E6D0034B245 /* Scanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
+		93BDE3A72E135C8900B37CD1 /* StorageLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageLocation.swift; sourceTree = "<group>"; };
 		93ECC19F2E09DFB500B0B5A9 /* OpenFoodFactsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenFoodFactsService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -228,6 +230,7 @@
 		93834C032B1B4ACF0043AE84 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				93BDE3A72E135C8900B37CD1 /* StorageLocation.swift */,
 				93834C092B1B4CC90043AE84 /* Categories.swift */,
 				93834C0B2B1B4E160043AE84 /* ProductGroups.swift */,
 				93834C0D2B1B52A10043AE84 /* ProductData.swift */,
@@ -368,6 +371,7 @@
 				93834BEC2B16593D0043AE84 /* ProductView.swift in Sources */,
 				931EEDE82B1646BB0006E4AD /* My_fridgeApp.swift in Sources */,
 				93834BF22B1660750043AE84 /* ProductRow.swift in Sources */,
+				93BDE3A82E135C8900B37CD1 /* StorageLocation.swift in Sources */,
 				935302592B89169A00939A58 /* StorageManager.swift in Sources */,
 				93834C142B1E325F0043AE84 /* SubCatalogViewModel.swift in Sources */,
 				93834C012B1688DA0043AE84 /* ProductListRow.swift in Sources */,

@@ -33,13 +33,26 @@ struct AddProductManualView: View {
             )
             .environment(\.locale, Locale(identifier: "ru_RU"))
             .padding(.vertical)
+            
+            Text("Место хранения")
+                .bold()
+                .padding(.top)
+            Picker("Место хранения", selection: $viewModel.storageLocation) {
+                ForEach(StorageLocation.allCases, id: \.self) { location in
+                    Text(location.rawValue).tag(location)
+                }
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .padding(.horizontal)
+            
             Spacer()
             Button {
                 myFridgeViewModel.addProductManual(
                     title: viewModel.productName,
                     manufacturer: viewModel.productManufactured,
                     expirationDate: viewModel.expirationDate,
-                    expirationDateString: viewModel.expirationDateString
+                    expirationDateString: viewModel.expirationDateString,
+                    storageLocation: viewModel.storageLocation
                 )
                 presentationMode.wrappedValue.dismiss()
             } label: {
